@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
-import { getPages } from "~/sanityClient";
+import { Welcome } from "../../welcome/welcome";
+import { getPages } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 
 export async function loader() {
