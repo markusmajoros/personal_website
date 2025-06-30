@@ -16,3 +16,16 @@ export async function getPages() {
   const pages = await client.fetch('*[_type == "page"]');
   return pages;
 }
+
+export async function getTrips() {
+  const trips = await client.fetch('*[_type == "trip"]');
+  return trips;
+}
+
+export async function getTrip(slug: string) {
+  const trip = await client.fetch(
+    `*[_type == "trip" && slug.current == $slug][0]`,
+    { slug }
+  );
+  return trip;
+}

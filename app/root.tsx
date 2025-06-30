@@ -1,7 +1,8 @@
-"use no memo"
+"use no memo";
 
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
@@ -35,7 +36,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <header className="header">
+          <Link to="/" className="logo">
+            Markus Majoros
+          </Link>
+          <nav className="nav">
+            <Link to="/trips">Meine Reisen</Link>
+            <Link to="/admin">Admin</Link>
+          </nav>
+        </header>
+        <main className="main">{children}</main>
+        <footer className="footer">
+          <p>© {new Date().getFullYear()} Markus Majoros</p>
+        </footer>
         <ScrollRestoration />
         <Scripts />
       </body>
