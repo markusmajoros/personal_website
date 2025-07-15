@@ -43,7 +43,7 @@ export function headers() {
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
+    { title: "Reise" },
     { name: "description", content: "Welcome to React Router!" },
   ];
 }
