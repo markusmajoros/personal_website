@@ -22,10 +22,10 @@ export const tripType = defineType({
       type: "string",
       options: {
         list: [
-          { title: "Adventure", value: "adventure" },
-          { title: "Relaxation", value: "relaxation" },
-          { title: "Cultural", value: "cultural" },
-          { title: "Nature", value: "nature" },
+          { title: "Adventure", value: "Adventure" },
+          { title: "Relaxation", value: "Relaxation" },
+          { title: "Cultural", value: "Cultural" },
+          { title: "Nature", value: "Nature" },
         ],
       },
     }),
