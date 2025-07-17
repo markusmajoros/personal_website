@@ -18,13 +18,48 @@ export async function getPages() {
 }
 
 export async function getTrips() {
-  const trips = await client.fetch('*[_type == "trip"]');
+  const trips = await client.fetch(`
+    *[_type == "trip"]{
+      _id,
+      title,
+      slug,
+      shortText,
+      image {
+        asset->{url}
+      }
+    }
+  `);
   return trips;
 }
 
 export async function getTrip(slug: string) {
   const trip = await client.fetch(
-    `*[_type == "trip" && slug.current == $slug][0]`,
+    `*[_type == "trip" && slug.current == $slug][0]{
+      _id,
+      title,
+      slug,
+      category,
+      shortText,
+      startDate,
+      endDate,
+      image {
+        asset->{url}
+      },
+      content[]{
+        ...,
+      },
+      stations[]{
+        _key,
+        title,
+        shortText,
+        content[]{
+          ...,
+        },
+        image {
+          asset->{url}
+        }
+      }
+    }`,
     { slug }
   );
   return trip;

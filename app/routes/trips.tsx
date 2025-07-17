@@ -18,10 +18,19 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <h1>Meine Reisen</h1>
       <p>Hier findest du eine Übersicht meiner Reisen.</p>
       {loaderData.trips.map((trip) => (
-        <Link to={`/trips/${trip.slug.current}`} key={trip._id}>
-          <h2>{trip.title}</h2>
-          <p>{trip.shortText}</p>
-        </Link>
+        <div key={trip._id}>
+          <Link to={`/trips/${trip.slug.current}`}>
+            <h2>{trip.title}</h2>
+            {trip.image?.asset?.url && (
+              <img
+                src={trip.image.asset.url}
+                alt={trip.title}
+                style={{ maxWidth: "300px" }}
+              />
+            )}
+            <p>{trip.shortText}</p>
+          </Link>
+        </div>
       ))}
     </div>
   );
