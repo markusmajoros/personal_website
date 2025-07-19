@@ -36,19 +36,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <header className="header">
-          <Link to="/" className="logo">
-            Markus Majoros
-          </Link>
-          <nav className="nav">
-            <Link to="/trips">Meine Reisen</Link>
-            <Link to="/admin">Admin</Link>
-          </nav>
-        </header>
-        <main className="main">{children}</main>
-        <footer className="footer">
-          <p>© {new Date().getFullYear()} Markus Majoros</p>
-        </footer>
+        <div className="main-website-wrapper">
+          <header className="header">
+            <Link to="/" className="logo">
+              Markus Majoros
+            </Link>
+            <nav className="nav">
+              <Link to="/trips">Reisen</Link>
+              <Link to="/admin">Admin</Link>
+            </nav>
+          </header>
+          <main className="main">{children}</main>
+          <footer className="footer">
+            <p>© {new Date().getFullYear()} Markus Majoros</p>
+          </footer>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>

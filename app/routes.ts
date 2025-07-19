@@ -5,4 +5,5 @@ export default [
   route("admin/*", "routes/admin.tsx"),
   route("trips/", "routes/trips.tsx"),
   route("trips/:slug", "routes/trip.tsx"),
+  route("trips/:slug/stations/:stationKey", "routes/station.tsx"),
 ] satisfies RouteConfig;

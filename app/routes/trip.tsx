@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import { Welcome } from "../../welcome/welcome";
 import { getPages, getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
+import { Link } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
   if (!params.slug) {
@@ -40,7 +41,11 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <div>
         {loaderData.trip.stations.map((station) => (
           <div key={station._key}>
-            <h3>{station.title}</h3>
+            <Link
+              to={`/trips/${loaderData.trip.slug.current}/stations/${station._key}`}
+            >
+              <h3>{station.title}</h3>
+            </Link>
             {station.image?.asset?.url && (
               <img
                 src={station.image.asset.url}
@@ -49,9 +54,6 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
               />
             )}{" "}
             <p>{station.shortText}</p>
-            <div>
-              <PortableText value={station.content} />
-            </div>
           </div>
         ))}
       </div>

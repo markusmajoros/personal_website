@@ -21,15 +21,15 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
         <div key={trip._id}>
           <Link to={`/trips/${trip.slug.current}`}>
             <h2>{trip.title}</h2>
-            {trip.image?.asset?.url && (
-              <img
-                src={trip.image.asset.url}
-                alt={trip.title}
-                style={{ maxWidth: "300px" }}
-              />
-            )}
-            <p>{trip.shortText}</p>
           </Link>
+          {trip.image?.asset?.url && (
+            <img
+              src={trip.image.asset.url}
+              alt={trip.title}
+              style={{ maxWidth: "300px" }}
+            />
+          )}
+          <p>{trip.shortText}</p>
         </div>
       ))}
     </div>
