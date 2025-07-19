@@ -16,7 +16,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
     <div>
       <h1>Meine Reisen</h1>
       <p>Hier findest du eine Übersicht meiner Reisen.</p>
-      {loaderData.trips.map((trip) => (
+      {loaderData.trips.map((trip, idx) => (
         <div key={trip._id}>
           <Link to={`/trips/${trip.slug.current}`}>
             <h2>{trip.title}</h2>
@@ -29,6 +29,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
             />
           )}
           <p>{trip.shortText}</p>
+          {idx < loaderData.trips.length - 1 && <hr />}
         </div>
       ))}
     </div>

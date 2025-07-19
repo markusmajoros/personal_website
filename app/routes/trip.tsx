@@ -21,11 +21,17 @@ export async function loader({ params }: Route.LoaderArgs) {
   };
 }
 
+function formatDateEu(dateString: string) {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}.${month}.${year}`;
+}
+
 export default function SingleTrip({ loaderData }: Route.ComponentProps) {
   return (
     <div>
       <h1>{loaderData.trip.title}</h1>
-      <p>Category: {loaderData.trip.category}</p>
+      <p>Kategorie: {loaderData.trip.category}</p>
       <p>{loaderData.trip.shortText}</p>
       <div>
         <PortableText value={loaderData.trip.content} />
@@ -35,11 +41,11 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
         alt={loaderData.trip.title}
         style={{ maxWidth: "80%" }}
       />
-      <p>Start Date: {loaderData.trip.startDate}</p>
-      <p>End Date: {loaderData.trip.endDate}</p>
-      <h2>Stations</h2>
+      <p>Startdatum: {formatDateEu(loaderData.trip.startDate)}</p>
+      <p>Enddatum: {formatDateEu(loaderData.trip.endDate)}</p>
+      <h2>Stationen</h2>
       <div>
-        {loaderData.trip.stations.map((station) => (
+        {loaderData.trip.stations.map((station, idx) => (
           <div key={station._key}>
             <Link
               to={`/trips/${loaderData.trip.slug.current}/stations/${station._key}`}
@@ -54,6 +60,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
               />
             )}{" "}
             <p>{station.shortText}</p>
+            {idx < loaderData.trip.stations.length - 1 && <hr />}
           </div>
         ))}
       </div>
