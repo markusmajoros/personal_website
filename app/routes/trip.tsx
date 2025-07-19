@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import { Welcome } from "../../welcome/welcome";
-import { getPages, getTrip } from "~/sanity/client";
+import { getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
 
@@ -68,8 +68,5 @@ export function headers() {
 }
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Reise" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: "Reise" }, { name: "description", content: "" }];
 }

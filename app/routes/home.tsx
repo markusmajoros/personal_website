@@ -33,8 +33,5 @@ export function headers() {
 }
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "markusmajoros" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: "markusmajoros" }, { name: "description", content: "" }];
 }

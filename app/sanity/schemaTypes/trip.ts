@@ -68,7 +68,7 @@ export const tripType = defineType({
             defineField({
               name: "content",
               type: "array",
-              of: [{ type: "block" }],
+              of: [{ type: "block" }, { type: "media" }],
             }),
             defineField({
               name: "image",

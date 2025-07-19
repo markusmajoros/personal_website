@@ -54,6 +54,17 @@ export async function getTrip(slug: string) {
         shortText,
         content[]{
           ...,
+          _type == "media" => {
+            type,
+            alt,
+            caption,
+            image {
+              asset->{url},
+            },
+            video {
+              asset->{url, mimeType},
+            }
+          },
         },
         image {
           asset->{url}
