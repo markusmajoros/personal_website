@@ -70,7 +70,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
 
 export function headers() {
   return {
-    "Cache-Control": "max-age: 3600,s-maxage: 7200",
+    "Cache-Control": "max-age=3600,s-maxage=7200",
   };
 }
 
