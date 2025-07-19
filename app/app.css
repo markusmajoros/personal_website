@@ -28,6 +28,13 @@ body::after {
   right: 0;
 }
 
+@media (max-width: 768px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+
 .main-website-wrapper {
   max-width: 70%;
   margin: 0 auto;
