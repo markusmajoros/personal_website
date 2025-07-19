@@ -1,14 +1,8 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../../welcome/welcome";
+import type { Route } from "./+types/station";
+
 import { getTrip, client } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
-import imageUrlBuilder from "@sanity/image-url";
-
-const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
-  return builder.image(source);
-}
 
 const portableTextComponents = {
   types: {
@@ -133,7 +127,7 @@ export function meta({ data }: Route.MetaArgs) {
 
   return [
     {
-      title: "Station",
+      title: `${station?.title}`,
     },
     {
       name: "description",

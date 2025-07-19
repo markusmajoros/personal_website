@@ -1,5 +1,5 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../../welcome/welcome";
+import type { Route } from "./+types/trip";
+
 import { getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";

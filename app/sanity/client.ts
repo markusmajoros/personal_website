@@ -13,7 +13,30 @@ export const client = createClient({
 
 // uses GROQ to query content: https://www.sanity.io/docs/groq
 export async function getPages() {
-  const pages = await client.fetch('*[_type == "page"]');
+  const pages = await client.fetch(`
+    *[_type == "page"]{
+      _id,
+      title,
+      slug,
+      image {
+        asset->{url}
+      },
+      content[]{
+        ...,
+        _type == "media" => {
+          type,
+          alt,
+          caption,
+          image {
+            asset->{url}
+          },
+          video {
+            asset->{url, mimeType}
+          }
+        }
+      }
+    }
+  `);
   return pages;
 }
 
