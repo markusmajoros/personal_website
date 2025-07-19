@@ -13,8 +13,6 @@ function urlFor(source: any) {
 const portableTextComponents = {
   types: {
     media: ({ value }: any) => {
-      console.log("Media component called with:", value);
-
       if (value.type === "image" && value.image?.asset?.url) {
         const imageUrl = value.image.asset.url;
         return (
@@ -96,8 +94,6 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export default function SingleStation({ loaderData }: Route.ComponentProps) {
-  console.log("Station content:", loaderData.station.content);
-
   return (
     <div>
       <h1>Station: {loaderData.station.title}</h1>
@@ -111,7 +107,7 @@ export default function SingleStation({ loaderData }: Route.ComponentProps) {
         <img
           src={loaderData.station.image.asset.url}
           alt={loaderData.station.title}
-          style={{ maxWidth: "400px" }}
+          style={{ maxWidth: "90%" }}
         />
       )}
       <p>{loaderData.station.shortText}</p>
@@ -131,6 +127,19 @@ export function headers() {
   };
 }
 
-export function meta({}: Route.MetaArgs) {
-  return [{ title: "Station" }, { name: "description", content: "" }];
+export function meta({ data }: Route.MetaArgs) {
+  const trip = data?.trip;
+  const station = data?.station;
+
+  return [
+    {
+      title: "Station",
+    },
+    {
+      name: "description",
+      content: station?.shortText
+        ? station.shortText
+        : `Station aus der Reise "${trip?.title}".`,
+    },
+  ];
 }

@@ -26,7 +26,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
             <img
               src={trip.image.asset.url}
               alt={trip.title}
-              style={{ maxWidth: "300px" }}
+              style={{ maxWidth: "80%" }}
             />
           )}
           <p>{trip.shortText}</p>
@@ -43,5 +43,12 @@ export function headers() {
 }
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Meine Reisen" }, { name: "description", content: "" }];
+  return [
+    { title: "Meine Reisen" },
+    {
+      name: "description",
+      content:
+        "Eine Übersicht über meine Reisen durch verschiedene Länder und Regionen.",
+    },
+  ];
 }

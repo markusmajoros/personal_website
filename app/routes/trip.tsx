@@ -33,7 +33,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <img
         src={loaderData.trip.image?.asset?.url}
         alt={loaderData.trip.title}
-        style={{ maxWidth: "300px" }}
+        style={{ maxWidth: "80%" }}
       />
       <p>Start Date: {loaderData.trip.startDate}</p>
       <p>End Date: {loaderData.trip.endDate}</p>
@@ -50,7 +50,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
               <img
                 src={station.image.asset.url}
                 alt={station.title}
-                style={{ maxWidth: "200px" }}
+                style={{ maxWidth: "60%" }}
               />
             )}{" "}
             <p>{station.shortText}</p>
@@ -67,6 +67,14 @@ export function headers() {
   };
 }
 
-export function meta({}: Route.MetaArgs) {
-  return [{ title: "Reise" }, { name: "description", content: "" }];
+export function meta({ data }: Route.MetaArgs) {
+  const trip = data?.trip;
+
+  return [
+    { title: "Reise" },
+    {
+      name: "description",
+      content: `Erfahre mehr über meine Reise nach ${trip?.title}.`,
+    },
+  ];
 }

@@ -78,7 +78,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </header>
           <main className="main">{children}</main>
           <footer className="footer">
-            <p>© {new Date().getFullYear()} Markus Majoros</p>
+            <p>© {new Date().getFullYear()} Markus Majoros </p>
+            <a
+              href="https://github.com/markusmajoros/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/images/github.png" alt="Github"></img>
+            </a>
+            <a
+              href="https://at.linkedin.com/in/markus-majoros-926a242a8/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/images/linkedin.png" alt="Linkedin"></img>
+            </a>
           </footer>
         </div>
         <ScrollRestoration />
