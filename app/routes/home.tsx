@@ -33,5 +33,5 @@ export function headers() {
 }
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "markusmajoros" }, { name: "description", content: "" }];
+  return [{ title: "Markus Majoros" }, { name: "description", content: "" }];
 }
