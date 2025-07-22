@@ -28,13 +28,6 @@ body::after {
   right: 0;
 }
 
-@media (max-width: 768px) {
-  body::before,
-  body::after {
-    display: none;
-  }
-}
-
 .main-website-wrapper {
   width: 70%;
   max-width: 900px;
@@ -100,4 +93,20 @@ body::after {
   margin: 0 auto;
   width: 100%;
   padding-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+  .main-website-wrapper {
+    width: 80%;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
