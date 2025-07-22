@@ -3,6 +3,7 @@ import type { Route } from "./+types/trip";
 import { getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
+import { urlFor } from "~/sanity/sanityImageUrl";
 
 export async function loader({ params }: Route.LoaderArgs) {
   if (!params.slug) {
@@ -33,14 +34,16 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <h1>{loaderData.trip.title}</h1>
       <p>Kategorie: {loaderData.trip.category}</p>
       <p>{loaderData.trip.shortText}</p>
+      {loaderData.trip.image?.asset && (
+        <img
+          src={urlFor(loaderData.trip.image).width(1000).auto("format").url()}
+          alt={loaderData.trip.title}
+          style={{ maxWidth: "80%" }}
+        />
+      )}
       <div>
         <PortableText value={loaderData.trip.content} />
       </div>
-      <img
-        src={loaderData.trip.image?.asset?.url}
-        alt={loaderData.trip.title}
-        style={{ maxWidth: "80%" }}
-      />
       <p>Startdatum: {formatDateEu(loaderData.trip.startDate)}</p>
       <p>Enddatum: {formatDateEu(loaderData.trip.endDate)}</p>
       <h2>Stationen</h2>
@@ -52,14 +55,16 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
             >
               <h3>{station.title}</h3>
             </Link>
-            {station.image?.asset?.url && (
+            {station.image?.asset && (
               <img
-                src={station.image.asset.url}
+                src={urlFor(station.image).width(600).auto("format").url()}
                 alt={station.title}
                 style={{ maxWidth: "60%" }}
               />
             )}{" "}
             <p>{station.shortText}</p>
+            <p>Von: {formatDateEu(station.startDate)}</p>
+            <p>Bis: {formatDateEu(station.endDate)}</p>
             {idx < loaderData.trip.stations.length - 1 && <hr />}
           </div>
         ))}

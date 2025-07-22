@@ -1,14 +1,15 @@
 import type { Route } from "./+types/station";
 
-import { getTrip, client } from "~/sanity/client";
+import { getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
+import { urlFor } from "~/sanity/sanityImageUrl";
 
 const portableTextComponents = {
   types: {
     media: ({ value }: any) => {
       if (value.type === "image" && value.image?.asset?.url) {
-        const imageUrl = value.image.asset.url;
+        const imageUrl = urlFor(value.image).auto("format").url();
         return (
           <figure>
             <img
@@ -20,6 +21,7 @@ const portableTextComponents = {
                 height: "auto",
                 display: "block",
                 margin: "20px auto",
+                marginBottom: "0rem",
               }}
             />
             {value.caption && <figcaption>{value.caption}</figcaption>}
@@ -87,6 +89,12 @@ export async function loader({ params }: Route.LoaderArgs) {
   };
 }
 
+function formatDateEu(dateString: string) {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}.${month}.${year}`;
+}
+
 export default function SingleStation({ loaderData }: Route.ComponentProps) {
   return (
     <div>
@@ -97,14 +105,16 @@ export default function SingleStation({ loaderData }: Route.ComponentProps) {
           {loaderData.trip.title}
         </Link>
       </p>
-      {loaderData.station.image?.asset?.url && (
+      {loaderData.station.image?.asset && (
         <img
-          src={loaderData.station.image.asset.url}
+          src={urlFor(loaderData.station.image).auto("format").url()}
           alt={loaderData.station.title}
           style={{ maxWidth: "90%" }}
         />
       )}
-      <p>{loaderData.station.shortText}</p>
+      <p>Von: {formatDateEu(loaderData.station.startDate)}</p>
+      <p>Bis: {formatDateEu(loaderData.station.endDate)}</p>
+      <hr></hr>
       <div>
         <PortableText
           value={loaderData.station.content}

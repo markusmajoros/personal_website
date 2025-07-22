@@ -74,6 +74,14 @@ export const tripType = defineType({
               name: "image",
               type: "image",
             }),
+            defineField({
+              name: "startDate",
+              type: "date",
+            }),
+            defineField({
+              name: "endDate",
+              type: "date",
+            }),
           ],
         },
       ],

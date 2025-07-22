@@ -89,6 +89,8 @@ export async function getTrip(slug: string) {
             }
           },
         },
+        startDate,
+        endDate,
         image {
           asset->{url}
         }

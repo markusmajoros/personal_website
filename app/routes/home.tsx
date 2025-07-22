@@ -1,12 +1,13 @@
 import type { Route } from "./+types/home";
 import { getPages } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
+import { urlFor } from "~/sanity/sanityImageUrl";
 
 const portableTextComponents = {
   types: {
     media: ({ value }: any) => {
       if (value.type === "image" && value.image?.asset?.url) {
-        const imageUrl = value.image.asset.url;
+        const imageUrl = urlFor(value.image).width(1000).auto("format").url();
         return (
           <figure>
             <img

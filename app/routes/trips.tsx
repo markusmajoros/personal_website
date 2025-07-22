@@ -1,7 +1,7 @@
 import type { Route } from "./+types/trips";
-import { getPages, getTrip, getTrips } from "~/sanity/client";
-import { PortableText } from "@portabletext/react";
+import { getTrips } from "~/sanity/client";
 import { Link } from "react-router";
+import { urlFor } from "~/sanity/sanityImageUrl";
 
 export async function loader() {
   const trips = await getTrips();
@@ -21,14 +21,14 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
           <Link to={`/trips/${trip.slug.current}`}>
             <h2>{trip.title}</h2>
           </Link>
-          {trip.image?.asset?.url && (
+          <p>{trip.shortText}</p>
+          {trip.image?.asset && (
             <img
-              src={trip.image.asset.url}
+              src={urlFor(trip.image).width(1000).auto("format").url()}
               alt={trip.title}
               style={{ maxWidth: "80%" }}
             />
           )}
-          <p>{trip.shortText}</p>
           {idx < loaderData.trips.length - 1 && <hr />}
         </div>
       ))}

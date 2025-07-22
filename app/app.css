@@ -36,7 +36,9 @@ body::after {
 }
 
 .main-website-wrapper {
-  max-width: 70%;
+  width: 70%;
+  max-width: 900px;
+  min-width: 320px;
   margin: 0 auto;
   min-height: 100vh;
   background-color: white;
@@ -81,6 +83,9 @@ body::after {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .footer p {
@@ -94,5 +99,5 @@ body::after {
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
-  padding: 2rem;
+  padding-bottom: 1rem;
 }
