@@ -7,9 +7,12 @@ import { urlFor } from "~/sanity/sanityImageUrl";
 
 const portableTextComponents = {
   types: {
+    horizontalRule: () => (
+      <hr style={{ margin: "2rem 0", borderColor: "#ccc" }} />
+    ),
     media: ({ value }: any) => {
-      if (value.type === "image" && value.image?.asset?.url) {
-        const imageUrl = urlFor(value.image).auto("format").url();
+      if (value.type === "image" && value.image?.asset) {
+        const imageUrl = urlFor(value.image).width(1000).auto("format").url();
         return (
           <figure>
             <img
@@ -29,7 +32,7 @@ const portableTextComponents = {
         );
       }
 
-      if (value.type === "video" && value.video?.asset?.url) {
+      if (value.type === "video" && value.video?.asset) {
         return (
           <figure>
             <video
@@ -60,6 +63,21 @@ const portableTextComponents = {
           <p>Unbekannter Medientyp: {value.type}</p>
           <pre>{JSON.stringify(value, null, 2)}</pre>
         </div>
+      );
+    },
+  },
+  marks: {
+    link: ({ children, value }) => {
+      const href = value?.href || "";
+      const isExternal = href.startsWith("http");
+      return (
+        <a
+          href={href}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
       );
     },
   },
@@ -107,7 +125,10 @@ export default function SingleStation({ loaderData }: Route.ComponentProps) {
       </p>
       {loaderData.station.image?.asset && (
         <img
-          src={urlFor(loaderData.station.image).auto("format").url()}
+          src={urlFor(loaderData.station.image)
+            .width(1000)
+            .auto("format")
+            .url()}
           alt={loaderData.station.title}
           style={{ maxWidth: "90%" }}
         />

@@ -32,8 +32,6 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
   return (
     <div>
       <h1>{loaderData.trip.title}</h1>
-      <p>Kategorie: {loaderData.trip.category}</p>
-      <p>{loaderData.trip.shortText}</p>
       {loaderData.trip.image?.asset && (
         <img
           src={urlFor(loaderData.trip.image).width(1000).auto("format").url()}
@@ -44,6 +42,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <div>
         <PortableText value={loaderData.trip.content} />
       </div>
+      <p>Kategorie: {loaderData.trip.category}</p>
       <p>Startdatum: {formatDateEu(loaderData.trip.startDate)}</p>
       <p>Enddatum: {formatDateEu(loaderData.trip.endDate)}</p>
       <h2>Stationen</h2>
