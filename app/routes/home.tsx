@@ -6,7 +6,7 @@ import { urlFor } from "~/sanity/sanityImageUrl";
 const portableTextComponents = {
   types: {
     media: ({ value }: any) => {
-      if (value.type === "image" && value.image?.asset?.url) {
+      if (value.type === "image" && value.image?.asset) {
         const imageUrl = urlFor(value.image).width(1000).auto("format").url();
         return (
           <figure>
@@ -26,7 +26,7 @@ const portableTextComponents = {
         );
       }
 
-      if (value.type === "video" && value.video?.asset?.url) {
+      if (value.type === "video" && value.video?.asset) {
         return (
           <figure>
             <video

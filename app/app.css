@@ -103,10 +103,12 @@ body::after {
   .main-website-wrapper {
     width: 80%;
   }
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+  .header {
+    padding-left: 0;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 }
