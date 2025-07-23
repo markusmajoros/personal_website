@@ -73,7 +73,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </Link>
             <nav className="nav">
               <Link to="/trips">Reisen</Link>
-              <Link to="/admin">Admin</Link>
             </nav>
           </header>
           <main className="main">{children}</main>
