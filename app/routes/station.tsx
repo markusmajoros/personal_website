@@ -66,6 +66,44 @@ const portableTextComponents = {
       );
     },
   },
+
+  youtube: ({ value }: { value: any }) => {
+    let videoId = "";
+    try {
+      const url = new URL(value.url);
+      if (url.hostname === "youtu.be") {
+        videoId = url.pathname.slice(1);
+      } else if (url.pathname.startsWith("/embed/")) {
+        videoId = url.pathname.split("/embed/")[1];
+      } else if (url.pathname.startsWith("/shorts/")) {
+        videoId = url.pathname.split("/shorts/")[1];
+      } else {
+        videoId = url.searchParams.get("v") || "";
+      }
+    } catch {
+      return <p>Ungültiger YouTube-Link</p>;
+    }
+    videoId = videoId.split("?")[0].split("&")[0];
+    if (!videoId) return <p>Ungültiger YouTube-Link</p>;
+    return (
+      <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}`}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            border: 0,
+          }}
+          frameBorder="0"
+          allowFullScreen
+        />
+      </div>
+    );
+  },
+
   marks: {
     link: ({ children, value }) => {
       const href = value?.href || "";
