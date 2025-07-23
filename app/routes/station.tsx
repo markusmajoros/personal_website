@@ -86,7 +86,12 @@ const portableTextComponents = {
       if (!videoId) return <p>Ungültiger YouTube-Link</p>;
       return (
         <div
-          style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}
+          style={{
+            position: "relative",
+            paddingBottom: "56.25%",
+            height: 0,
+            margin: "2rem 0",
+          }}
         >
           <iframe
             src={`https://www.youtube.com/embed/${videoId}`}
