@@ -78,21 +78,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </header>
           <main className="main">{children}</main>
           <footer className="footer">
-            <p>© {new Date().getFullYear()} Markus Majoros </p>
-            <a
-              href="https://github.com/markusmajoros/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/github.png" alt="Github"></img>
-            </a>
-            <a
-              href="https://at.linkedin.com/in/markus-majoros-926a242a8/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/linkedin.png" alt="Linkedin"></img>
-            </a>
+            <div className="credentials">
+              <p>© {new Date().getFullYear()} Markus Majoros </p>
+              <a
+                href="https://github.com/markusmajoros/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="/github.png" alt="Github"></img>
+              </a>
+              <a
+                href="https://at.linkedin.com/in/markus-majoros-926a242a8/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="/linkedin.png" alt="Linkedin"></img>
+              </a>
+            </div>
+            <nav className="nav">
+              <Link to="/imprint">Impressum</Link>
+            </nav>
           </footer>
         </div>
         <ScrollRestoration />

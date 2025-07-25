@@ -6,4 +6,6 @@ export default [
   route("trips/", "routes/trips.tsx"),
   route("trips/:slug", "routes/trip.tsx"),
   route("trips/:slug/stations/:stationKey", "routes/station.tsx"),
+  route("imprint/", "routes/imprint.tsx"),
+  route("privacy-policy/", "routes/privacyPolicy.tsx"),
 ] satisfies RouteConfig;
