@@ -42,7 +42,7 @@ export async function getPages() {
 
 export async function getTrips() {
   const trips = await client.fetch(`
-    *[_type == "trip"]{
+    *[_type == "trip"] | order(_createdAt desc){
       _id,
       title,
       slug,
