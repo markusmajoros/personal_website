@@ -42,14 +42,16 @@ export async function getPages() {
 
 export async function getTrips() {
   const trips = await client.fetch(`
-    *[_type == "trip"] | order(_createdAt desc){
+    *[_type == "trip"] | order(startDate asc){
       _id,
       title,
       slug,
       shortText,
       image {
         asset->{url}
-      }
+      },
+      startDate,
+      endDate
     }
   `);
   return trips;

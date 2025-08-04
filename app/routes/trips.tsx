@@ -11,6 +11,12 @@ export async function loader() {
   };
 }
 
+function formatDateEu(dateString: string) {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}.${month}.${year}`;
+}
+
 export default function SingleTrip({ loaderData }: Route.ComponentProps) {
   return (
     <div>
@@ -22,6 +28,11 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
             <h2>{trip.title}</h2>
           </Link>
           <p>{trip.shortText}</p>
+          <p>
+            <p>
+              {formatDateEu(trip.startDate)} - {formatDateEu(trip.endDate)}
+            </p>
+          </p>
           {trip.image?.asset && (
             <img
               src={urlFor(trip.image).width(1000).auto("format").url()}
