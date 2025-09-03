@@ -4,7 +4,7 @@ export default function About({ loaderData }: Route.ComponentProps) {
   return (
     <div>
       <img
-        src="/images/markus_cv.jpg"
+        src="/markus_cv.jpg"
         loading="lazy"
         style={{
           maxWidth: "100%",

@@ -75,7 +75,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <div>
       <div className="homepage">
         <img
-          src="/images/homepage.jpg"
+          src="/homepage.jpg"
           loading="lazy"
           style={{
             width: "auto",
@@ -84,12 +84,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             margin: "20px auto",
           }}
         ></img>
-        <p className="tripText">
-          Hallo! Mein Name ist Markus Majoros, ich bin studierter Jurist und
-          angehender Web Developer. Ich liebe es neue Sachen zu lernen und
-          meinen Horizont zu erweitern.
-        </p>
-        <a href="/about">Hier findest du mehr Infos über mich</a>
+        <div className="tripText">
+          <p>
+            Hallo! Mein Name ist Markus Majoros, ich bin studierter Jurist und
+            angehender Web Developer. Ich liebe es neue Sachen zu lernen und
+            meinen Horizont zu erweitern.
+          </p>
+          <a href="/about">Hier findest du mehr Infos über mich</a>
+        </div>
       </div>
       <div>
         {loaderData.pages.map((page) => (

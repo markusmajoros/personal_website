@@ -33,7 +33,7 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
                 .width(1000)
                 .height(630)
                 .auto("format")
-                .crop("center")
+                .crop("focalpoint")
                 .fit("crop")
                 .url()}
               alt={trip.title}
