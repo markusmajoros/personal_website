@@ -1,38 +1,39 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from "sanity";
 
 export const mediaType = defineType({
-  name: 'media',
-  title: 'Medien',
-  type: 'object',
+  name: "media",
+  title: "Medien",
+  type: "object",
   fields: [
     defineField({
-      name: 'type',
-      type: 'string',
+      name: "type",
+      type: "string",
       options: {
-        list: ['image', 'video'],
+        list: ["image", "video"],
       },
     }),
     defineField({
-      name: 'image',
-      type: 'image',
-      title: 'Bild',
-      hidden: ({parent}) => parent?.type !== 'image',
+      name: "image",
+      type: "image",
+      options: { hotspot: true },
+      title: "Bild",
+      hidden: ({ parent }) => parent?.type !== "image",
     }),
     defineField({
-      name: 'video',
-      type: 'file',
-      title: 'Video',
-      hidden: ({parent}) => parent?.type !== 'video',
+      name: "video",
+      type: "file",
+      title: "Video",
+      hidden: ({ parent }) => parent?.type !== "video",
     }),
     defineField({
-      name: 'alt',
-      type: 'string',
-      title: 'Alternative Text',
+      name: "alt",
+      type: "string",
+      title: "Alternative Text",
     }),
     defineField({
-      name: 'caption',
-      type: 'string',
-      title: 'Bildunterschrift',
+      name: "caption",
+      type: "string",
+      title: "Bildunterschrift",
     }),
   ],
-})
+});

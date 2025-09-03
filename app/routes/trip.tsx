@@ -31,23 +31,34 @@ function formatDateEu(dateString: string) {
 export default function SingleTrip({ loaderData }: Route.ComponentProps) {
   return (
     <div>
-      <h1>{loaderData.trip.title}</h1>
-      {loaderData.trip.image?.asset && (
-        <img
-          src={urlFor(loaderData.trip.image).width(1000).auto("format").url()}
-          alt={loaderData.trip.title}
-          style={{ maxWidth: "80%" }}
-        />
-      )}
-      <div>
-        <PortableText value={loaderData.trip.content} />
+      <div className="singletrip">
+        <h1 style={{ textAlign: "center" }}>{loaderData.trip.title}</h1>
+        {loaderData.trip.image?.asset && (
+          <img
+            src={urlFor(loaderData.trip.image)
+              .width(1000)
+              .height(630)
+              .auto("format")
+              .crop("focalpoint")
+              .fit("crop")
+              .url()}
+            alt={loaderData.trip.title}
+            style={{ maxWidth: "100%" }}
+            loading="lazy"
+          />
+        )}
+        <div className="tripText">
+          <div>
+            <PortableText value={loaderData.trip.content} />
+          </div>
+          <p>Kategorie: {loaderData.trip.category}</p>
+          <p>Startdatum: {formatDateEu(loaderData.trip.startDate)}</p>
+          <p>Enddatum: {formatDateEu(loaderData.trip.endDate)}</p>
+        </div>
       </div>
-      <p>Kategorie: {loaderData.trip.category}</p>
-      <p>Startdatum: {formatDateEu(loaderData.trip.startDate)}</p>
-      <p>Enddatum: {formatDateEu(loaderData.trip.endDate)}</p>
-      <h2>Stationen</h2>
-      <div>
-        {loaderData.trip.stations.map((station, idx) => (
+      <h2 style={{ textAlign: "center" }}>Stationen</h2>
+      <div className="stationlist">
+        {loaderData.trip.stations.map((station) => (
           <div key={station._key}>
             <Link
               to={`/trips/${loaderData.trip.slug.current}/stations/${station._key}`}
@@ -56,15 +67,23 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
             </Link>
             {station.image?.asset && (
               <img
-                src={urlFor(station.image).width(600).auto("format").url()}
+                src={urlFor(station.image)
+                  .width(1000)
+                  .height(630)
+                  .auto("format")
+                  .crop("focalpoint")
+                  .fit("crop")
+                  .url()}
                 alt={station.title}
-                style={{ maxWidth: "60%" }}
+                style={{ maxWidth: "100%" }}
+                loading="lazy"
               />
             )}{" "}
-            <p>{station.shortText}</p>
-            <p>Von: {formatDateEu(station.startDate)}</p>
-            <p>Bis: {formatDateEu(station.endDate)}</p>
-            {idx < loaderData.trip.stations.length - 1 && <hr />}
+            <div className="tripText">
+              <p>{station.shortText}</p>
+              <p>Von: {formatDateEu(station.startDate)}</p>
+              <p>Bis: {formatDateEu(station.endDate)}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -74,7 +93,8 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
 
 export function headers() {
   return {
-    "Cache-Control": "max-age=3600,s-maxage=7200",
+    "Cache-Control":
+      "max-age=3600,s-maxage=7200,stale-while-revalidate=2592000",
   };
 }
 

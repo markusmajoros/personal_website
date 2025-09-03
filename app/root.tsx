@@ -28,7 +28,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -66,40 +66,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="manifest" href="/site.webmanifest" /> <Links />
       </head>
       <body>
-        <div className="main-website-wrapper">
-          <header className="header">
-            <Link to="/" className="logo">
-              Markus Majoros
-            </Link>
-            <nav className="nav">
-              <Link to="/trips">Reisen</Link>
-              <Link to="/admin">Admin</Link>
-            </nav>
-          </header>
-          <main className="main">{children}</main>
-          <footer className="footer">
-            <div className="credentials">
-              <p>© {new Date().getFullYear()} Markus Majoros </p>
-              <a
-                href="https://github.com/markusmajoros/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src="/github.png" alt="Github"></img>
-              </a>
-              <a
-                href="https://at.linkedin.com/in/markus-majoros-926a242a8/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src="/linkedin.png" alt="Linkedin"></img>
-              </a>
-            </div>
-            <nav className="nav">
-              <Link to="/imprint">Impressum</Link>
-            </nav>
-          </footer>
-        </div>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>

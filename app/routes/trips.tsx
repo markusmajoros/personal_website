@@ -21,26 +21,34 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
   return (
     <div>
       <h1>Meine Reisen</h1>
-      <p>Hier findest du eine Übersicht meiner Reisen.</p>
-      {loaderData.trips.map((trip, idx) => (
-        <div key={trip._id}>
+      <p className="tripText">Hier findest du eine Übersicht meiner Reisen.</p>
+      {loaderData.trips.map((trip) => (
+        <div key={trip._id} className="trip">
           <Link to={`/trips/${trip.slug.current}`}>
             <h2>{trip.title}</h2>
           </Link>
-          <p>{trip.shortText}</p>
-          <p>
-            <p>
-              {formatDateEu(trip.startDate)} - {formatDateEu(trip.endDate)}
-            </p>
-          </p>
           {trip.image?.asset && (
             <img
-              src={urlFor(trip.image).width(1000).auto("format").url()}
+              src={urlFor(trip.image)
+                .width(1000)
+                .height(630)
+                .auto("format")
+                .crop("center")
+                .fit("crop")
+                .url()}
               alt={trip.title}
-              style={{ maxWidth: "80%" }}
+              style={{ maxWidth: "100%" }}
+              loading="lazy"
             />
           )}
-          {idx < loaderData.trips.length - 1 && <hr />}
+          <div className="tripText">
+            <p>{trip.shortText}</p>
+            <p>
+              <p>
+                {formatDateEu(trip.startDate)} - {formatDateEu(trip.endDate)}
+              </p>
+            </p>
+          </div>
         </div>
       ))}
     </div>
@@ -49,7 +57,8 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
 
 export function headers() {
   return {
-    "Cache-Control": "max-age=3600,s-maxage=7200",
+    "Cache-Control":
+      "max-age=3600,s-maxage=7200,stale-while-revalidate=2592000",
   };
 }
 

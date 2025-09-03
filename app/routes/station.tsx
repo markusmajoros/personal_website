@@ -4,15 +4,20 @@ import { getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
 import { urlFor } from "~/sanity/sanityImageUrl";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const portableTextComponents = {
   types: {
     horizontalRule: () => (
-      <hr style={{ margin: "2rem 0", borderColor: "#ccc" }} />
+      <hr style={{ margin: "3rem 0", borderColor: "#ccc" }} />
     ),
     media: ({ value }: any) => {
       if (value.type === "image" && value.image?.asset) {
         const imageUrl = urlFor(value.image).width(1000).auto("format").url();
+
+        const height = value.image.asset.metadata.dimensions.height;
+        const width = value.image.asset.metadata.dimensions.width;
+
         return (
           <figure>
             <img
@@ -20,6 +25,7 @@ const portableTextComponents = {
               alt={value.alt || "Content Image"}
               loading="lazy"
               style={{
+                aspectRatio: `${width} / ${height}`,
                 maxWidth: "100%",
                 height: "auto",
                 display: "block",
@@ -138,9 +144,19 @@ export async function loader({ params }: Route.LoaderArgs) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const station = trip.stations.find((s: any) => s._key === params.stationKey);
+  const stationIndex = trip.stations.findIndex(
+    (s: any) => s._key === params.stationKey
+  );
 
-  if (!station) {
+  const station = trip.stations[stationIndex];
+  const stationPrev =
+    stationIndex !== 0 ? trip.stations[stationIndex - 1] : null;
+  const stationNext =
+    trip.stations.length - 1 !== stationIndex
+      ? trip.stations[stationIndex + 1]
+      : null;
+
+  if (stationIndex === -1) {
     throw new Response("Station Not Found", { status: 404 });
   }
 
@@ -148,6 +164,8 @@ export async function loader({ params }: Route.LoaderArgs) {
     date: new Date(),
     trip,
     station,
+    stationPrev,
+    stationNext,
   };
 }
 
@@ -159,32 +177,82 @@ function formatDateEu(dateString: string) {
 
 export default function SingleStation({ loaderData }: Route.ComponentProps) {
   return (
-    <div>
-      <h1>Station: {loaderData.station.title}</h1>
-      <p>
-        Gehört zur Reise:{" "}
-        <Link to={`/trips/${loaderData.trip.slug.current}`}>
-          {loaderData.trip.title}
-        </Link>
-      </p>
-      {loaderData.station.image?.asset && (
-        <img
-          src={urlFor(loaderData.station.image)
-            .width(1000)
-            .auto("format")
-            .url()}
-          alt={loaderData.station.title}
-          style={{ maxWidth: "90%" }}
-        />
-      )}
-      <p>Von: {formatDateEu(loaderData.station.startDate)}</p>
-      <p>Bis: {formatDateEu(loaderData.station.endDate)}</p>
-      <hr></hr>
-      <div>
-        <PortableText
-          value={loaderData.station.content}
-          components={portableTextComponents}
-        />
+    <div className="stationContainer">
+      <div className="arrows">
+        <div className="leftArrow">
+          {loaderData.stationPrev && (
+            <Link
+              to={`/trips/${loaderData.trip.slug.current}/stations/${loaderData.stationPrev._key}`}
+            >
+              <ArrowLeft />
+              {loaderData.stationPrev.title}
+            </Link>
+          )}
+        </div>
+        <h1>{loaderData.station.title}</h1>
+        <div className="rightArrow">
+          {loaderData.stationNext && (
+            <Link
+              to={`/trips/${loaderData.trip.slug.current}/stations/${loaderData.stationNext._key}`}
+            >
+              {loaderData.stationNext.title}
+              <ArrowRight />
+            </Link>
+          )}
+        </div>
+      </div>
+      <div className="stationText">
+        <p>
+          Gehört zur Reise:{" "}
+          <Link to={`/trips/${loaderData.trip.slug.current}`}>
+            {loaderData.trip.title}
+          </Link>
+        </p>
+        {loaderData.station.image?.asset && (
+          <img
+            src={urlFor(loaderData.station.image)
+              .width(1000)
+              .height(630)
+              .auto("format")
+              .crop("center")
+              .fit("crop")
+              .url()}
+            alt={loaderData.station.title}
+            style={{ maxWidth: "100%" }}
+            loading="lazy"
+          />
+        )}
+        <p>Von: {formatDateEu(loaderData.station.startDate)}</p>
+        <p>Bis: {formatDateEu(loaderData.station.endDate)}</p>
+        <hr style={{ margin: "3rem 0" }}></hr>
+        <div>
+          <PortableText
+            value={loaderData.station.content}
+            components={portableTextComponents}
+          />
+        </div>
+        <div className="arrows">
+          <div className="leftArrow">
+            {loaderData.stationPrev && (
+              <Link
+                to={`/trips/${loaderData.trip.slug.current}/stations/${loaderData.stationPrev._key}`}
+              >
+                <ArrowLeft />
+                {loaderData.stationPrev.title}
+              </Link>
+            )}
+          </div>
+          <div className="rightArrow">
+            {loaderData.stationNext && (
+              <Link
+                to={`/trips/${loaderData.trip.slug.current}/stations/${loaderData.stationNext._key}`}
+              >
+                {loaderData.stationNext.title}
+                <ArrowRight />
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -192,7 +260,8 @@ export default function SingleStation({ loaderData }: Route.ComponentProps) {
 
 export function headers() {
   return {
-    "Cache-Control": "max-age=3600,s-maxage=7200",
+    "Cache-Control":
+      "max-age=3600,s-maxage=7200,stale-while-revalidate=2592000",
   };
 }
 

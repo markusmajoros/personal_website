@@ -84,7 +84,7 @@ export async function getTrip(slug: string) {
             alt,
             caption,
             image {
-              asset->{url},
+              asset->{ ... },
             },
             video {
               asset->{url, mimeType},

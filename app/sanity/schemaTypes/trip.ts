@@ -44,6 +44,7 @@ export const tripType = defineType({
     defineField({
       name: "image",
       type: "image",
+      options: { hotspot: true },
     }),
     defineField({
       name: "content",
@@ -83,6 +84,7 @@ export const tripType = defineType({
             defineField({
               name: "image",
               type: "image",
+              options: { hotspot: true },
             }),
             defineField({
               name: "startDate",

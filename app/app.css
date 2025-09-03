@@ -1,31 +1,42 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("/OpenSans-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/OpenSans-Bold.ttf") format("ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
 html,
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  width: 160px;
+.site-bg-image {
+  background: url("/images/img_background.jpg") center center/cover no-repeat;
   height: 100%;
-  z-index: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: none;
 }
-body::before {
-  background: url("/images/img_left.jpg") center center/cover no-repeat;
-  left: 0;
-}
-body::after {
-  background: url("/images/img_right.jpg") center center/cover no-repeat;
-  right: 0;
+
+:root {
+  overscroll-behavior: none;
 }
 
 .main-website-wrapper {
@@ -55,21 +66,28 @@ body::after {
 .header .nav {
   display: flex;
   justify-content: center;
+  font-size: 1.2rem;
   gap: 1rem;
 }
 
 .header a {
+  display: flex;
   text-decoration: none;
   color: #343a40;
   font-weight: bold;
+  align-items: center;
+  gap: 5px;
 }
 
 .header a:hover {
   color: #007bff;
 }
 
+.markus {
+  font-size: 1.5rem;
+}
+
 .footer {
-  background-color: #f8f9fa;
   padding: 1rem;
   text-align: center;
   justify-content: space-between;
@@ -97,6 +115,7 @@ body::after {
 .footer .nav {
   display: flex;
   justify-content: center;
+  font-size: 1.2rem;
   gap: 1rem;
 }
 
@@ -111,19 +130,99 @@ body::after {
 }
 
 .main {
-  max-width: 800px;
+  max-width: 700px;
+  flex-grow: 1;
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
   padding-bottom: 1rem;
 }
 
+.main a {
+  text-decoration: none;
+  color: #343a40;
+  font-weight: bold;
+}
+
+.main a:hover {
+  color: #007bff;
+}
+
+.main h2 {
+  font-size: 1.8rem;
+}
+
+.main h3 {
+  font-size: 1.45rem;
+}
+
+figcaption {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.trip + .trip {
+  margin-top: 60px;
+}
+
+.singletrip {
+  margin-bottom: 60px;
+}
+
+.stationlist {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tripText {
+  font-size: 18px;
+}
+
+.stationContainer {
+  font-size: 18px;
+}
+
+.stationText {
+  width: 60ch;
+  margin: auto;
+}
+
+.arrows {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.arrows a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #343a40;
+  font-weight: bold;
+}
+
+.arrows .leftArrow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+}
+
+.arrows .rightArrow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
 @media (max-width: 768px) {
-  body::before,
-  body::after {
-    display: none;
+  body {
+    background: white;
   }
   .main-website-wrapper {
-    width: 80%;
+    width: 90%;
   }
   .header {
     padding-left: 0;
@@ -132,8 +231,5 @@ body::after {
   *::before,
   *::after {
     box-sizing: border-box;
-  }
-  .footer {
-    justify-content: center;
   }
 }

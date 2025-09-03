@@ -21,7 +21,8 @@ export default function Imprint({}: Route.ComponentProps) {
 
 export function headers() {
   return {
-    "Cache-Control": "max-age=3600,s-maxage=7200",
+    "Cache-Control":
+      "max-age=3600,s-maxage=7200,stale-while-revalidate=2592000",
   };
 }
 
