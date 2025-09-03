@@ -79,7 +79,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           loading="lazy"
           style={{
             width: "auto",
-            height: 630,
+            maxWidth: "100%",
+            height: "auto",
+            maxHeight: 630,
             display: "block",
             margin: "20px auto",
           }}
