@@ -155,6 +155,11 @@ body {
   font-size: 1.45rem;
 }
 
+.homepage {
+  display: flex;
+  flex-direction: column;
+}
+
 figcaption {
   margin-top: 6px;
   text-align: center;

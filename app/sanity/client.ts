@@ -47,8 +47,10 @@ export async function getTrips() {
       title,
       slug,
       shortText,
-      image {
-        asset->{url}
+      image{
+        asset,
+        crop,
+        hotspot
       },
       startDate,
       endDate
@@ -67,8 +69,10 @@ export async function getTrip(slug: string) {
       shortText,
       startDate,
       endDate,
-      image {
-        asset->{url}
+      image{
+        asset,
+        crop,
+        hotspot
       },
       content[]{
         ...,
@@ -93,8 +97,10 @@ export async function getTrip(slug: string) {
         },
         startDate,
         endDate,
-        image {
-          asset->{url}
+        image{
+          asset,
+          crop,
+          hotspot
         }
       }
     }`,

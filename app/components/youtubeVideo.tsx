@@ -8,6 +8,7 @@ type YoutubeVideoProps = {
 export default function YoutubeVideo({ value }: YoutubeVideoProps) {
   const [consentGiven, toggleConsent] = useCookieConsentContext("youtube");
   const [videoId, setVideoId] = useState("youtubeCookie");
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     try {
@@ -112,16 +113,45 @@ export default function YoutubeVideo({ value }: YoutubeVideoProps) {
             {consentGiven ? "An" : "Aus"}
           </label>
         </div>
-        <a
-          href="/privacy-policy"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        <div
           style={{
-            marginTop: "0.5rem",
+            marginTop: "0.75rem",
+            padding: "0.75rem 1rem",
+            background: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
           }}
         >
-          Hier gehts zur Datenschutzerklärung
-        </a>
+          <button
+            onClick={() => setShowInfo((prev) => !prev)}
+            style={{
+              background: "transparent",
+              fontSize: "16px",
+              fontWeight: "bold",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {showInfo ? "Cookie-Infos ausblenden" : "Cookie-Infos anzeigen"}
+          </button>
+          {showInfo && (
+            <div
+              style={{
+                marginTop: "0.5rem",
+                fontSize: "16px",
+              }}
+            >
+              <p>
+                Beim Aktivieren von YouTube-Cookies werden Daten an Google
+                übertragen. Dies kann Tracking beinhalten.
+              </p>
+              <a href="/privacy-policy">
+                Mehr dazu in der Datenschutzerklärung
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

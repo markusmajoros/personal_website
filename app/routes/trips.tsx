@@ -33,8 +33,6 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
                 .width(1000)
                 .height(630)
                 .auto("format")
-                .crop("focalpoint")
-                .fit("crop")
                 .url()}
               alt={trip.title}
               style={{ maxWidth: "100%" }}

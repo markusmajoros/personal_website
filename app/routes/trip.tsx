@@ -39,8 +39,6 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
               .width(1000)
               .height(630)
               .auto("format")
-              .crop("focalpoint")
-              .fit("crop")
               .url()}
             alt={loaderData.trip.title}
             style={{ maxWidth: "100%" }}
@@ -71,8 +69,6 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
                   .width(1000)
                   .height(630)
                   .auto("format")
-                  .crop("focalpoint")
-                  .fit("crop")
                   .url()}
                 alt={station.title}
                 style={{ maxWidth: "100%" }}
