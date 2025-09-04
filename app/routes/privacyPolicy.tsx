@@ -17,12 +17,13 @@ export default function PrivacyPolicy({}: Route.ComponentProps) {
         <ul>
           <li>werden keine persönlichen Informationen gespeichert</li>
           <li>
-            werden keine Tracking Informationen, wie z.B. Cookies, im Browser
-            gespeichert
+            werden keine Tracking-Informationen, wie z. B. Cookies, im Browser
+            gespeichert, außer durch Ihre ausdrückliche Einwilligung über den
+            Toggle-Consent für YouTube-Videos
           </li>
           <li>
-            werden keine Informationen mit Dritten (z.B. Werbefirmen) geteilt,
-            an diese gesendet oder verkauft
+            werden keine Informationen mit Dritten (außer YouTube als
+            Auftragsverarbeiter) geteilt, an diese gesendet oder verkauft
           </li>
           <li>
             werden keine Informationen über persönliche und verhaltensbezogene
@@ -94,15 +95,57 @@ export default function PrivacyPolicy({}: Route.ComponentProps) {
         Kommunikation könnten von Ihnen mitunter personenbezogene Daten an mich
         übermittelt werden (z.B. wenn Ihr Name aus der E-Mail-Adresse
         hervorgeht). Je nach Ihrer Anfrage werde ich diese Daten zweckgebunden
-        verarbeiten. Ich löschen die Anfragen und Sie betreffende Daten, sofern
+        verarbeiten. Ich lösche die Anfragen und Sie betreffende Daten, sofern
         diese nicht mehr erforderlich sind und keine gesetzlichen
         Speicherungspflichten bestehen.
+      </p>
+
+      <h3>YouTube-Videos</h3>
+      <p>
+        Auf dieser Website sind YouTube-Videos eingebunden. Ich selbst speichere
+        dabei keine personenbezogenen Daten. YouTube fungiert als
+        Auftragsverarbeiter.
+      </p>
+      <p>
+        Folgende Daten werden ggf. an YouTube übermittelt, sobald Sie ein Video
+        abspielen:
+      </p>
+      <ul>
+        <li>Ihre IP-Adresse (notwendig für die Videowiedergabe)</li>
+        <li>Informationen über Ihren Browser und Ihr Betriebssystem</li>
+        <li>Datum und Uhrzeit des Abrufs</li>
+        <li>Referrer-URL (welche Seite Sie zu YouTube geführt hat)</li>
+        <li>Interaktionen mit dem Video (Abspielen, Pausieren, Bewertung)</li>
+        <li>
+          Cookies von YouTube zur Analyse und Speicherung von Interaktionen (nur
+          bei Zustimmung)
+        </li>
+      </ul>
+      <p>
+        Die Rechtsgrundlage für die Verarbeitung ist Ihre ausdrückliche&nbsp;
+        <strong>Einwilligung</strong>, die Sie durch das Setzen eines Cookies
+        via Toggle-Consent erteilen. Solange Sie die Einwilligung nicht
+        erteilen, werden keine personenbezogenen Daten an YouTube übermittelt.
+      </p>
+      <p>
+        Sie können Ihre Einwilligung jederzeit über den Toggle-Consent
+        widerrufen. Weitere Informationen zur Datenverarbeitung durch YouTube
+        finden Sie hier:{" "}
+        <a
+          href="https://policies.google.com/privacy?hl=de"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://policies.google.com/privacy?hl=de
+        </a>
+        .
       </p>
 
       <h2>Rechtsgrundlage der Datenverarbeitung</h2>
       <p>
         Ich verarbeite personenbezogene Daten aufgrund berechtigter Interessen
-        gemäß Art 6 Abs 1 lit f DSGVO.
+        gemäß Art 6 Abs 1 lit f DSGVO sowie aufgrund Ihrer Einwilligung (Art 6
+        Abs. 1 lit a DSGVO), wenn Sie YouTube-Videos abspielen.
       </p>
       <ul>
         <li>
@@ -111,21 +154,21 @@ export default function PrivacyPolicy({}: Route.ComponentProps) {
           lassen.
         </li>
         <li>
-          Im Zuge einer Kontaktaufnahme per E-Mail werden personenbezogenen
-          Daten notwendigerweise verarbeitet, damit eine effektive Bearbeitung
-          dieser Anfragen gewährleistet werden kann.
+          Im Zuge einer Kontaktaufnahme per E-Mail werden personenbezogene Daten
+          notwendigerweise verarbeitet, damit eine effektive Bearbeitung dieser
+          Anfragen gewährleistet werden kann.
+        </li>
+        <li>
+          Bei YouTube-Videos erfolgt die Verarbeitung ausschließlich nach Ihrer
+          Einwilligung über den Toggle-Consent.
         </li>
       </ul>
-      <p>
-        Durch diese differenzierten Abwägungen soll das Interesse meiner
-        Website-Besucher*innen auf Schutz ihrer personenbezogenen Daten im Sinne
-        des Art 6 Abs 1 lit f DSGVO gewahrt werden.
-      </p>
 
       <h2>Speicherdauer und Löschung von Daten</h2>
       <p>
         Sobald der Zweck für die Speicherung entfällt, werden Ihre
-        personenbezogenen Daten unverzüglich gelöscht.
+        personenbezogenen Daten unverzüglich gelöscht. Für YouTube-Daten gelten
+        die Speicher- und Löschfristen von YouTube.
       </p>
 
       <h2>Betroffenenrechte</h2>

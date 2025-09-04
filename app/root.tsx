@@ -12,6 +12,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { CookieConsentProvider } from "./components/cookieProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -66,7 +67,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="manifest" href="/site.webmanifest" /> <Links />
       </head>
       <body>
-        {children}
+        <CookieConsentProvider>{children}</CookieConsentProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
