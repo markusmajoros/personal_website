@@ -67,6 +67,7 @@ export default function YoutubeVideo({ value }: YoutubeVideoProps) {
               alignItems: "center",
               justifyContent: "center",
               fontSize: "1rem",
+              padding: "0.5rem",
             }}
           >
             Du musst Cookies akzeptieren, um das Video zu sehen.
