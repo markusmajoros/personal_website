@@ -88,11 +88,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         ></img>
         <div className="tripText">
           <p>
-            Hallo! Mein Name ist Markus Majoros, ich bin studierter Jurist und
+            Hallo! Mein Name ist Markus Majoros, ich bin Jurist und
             angehender Web Developer mit einer Leidenschaft für IT-Recht. Ich
             liebe es neue Sachen zu lernen und meinen Horizont zu erweitern.
           </p>
-          <a href="/about">Hier findest du mehr Infos über mich</a>
+          <a href="/about">Hier findest du mehr Infos über mich.</a>
         </div>
       </div>
       <div>

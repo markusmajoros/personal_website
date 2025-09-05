@@ -124,6 +124,7 @@ export default function YoutubeVideo({ value }: YoutubeVideoProps) {
           }}
         >
           <button
+            className={`button ${showInfo ? "hide" : "show"}`}
             onClick={() => setShowInfo((prev) => !prev)}
             style={{
               background: "transparent",
@@ -133,7 +134,11 @@ export default function YoutubeVideo({ value }: YoutubeVideoProps) {
               cursor: "pointer",
             }}
           >
-            {showInfo ? "Cookie-Infos ausblenden" : "Cookie-Infos anzeigen"}
+            <span>
+              {showInfo
+                ? "Youtube-Cookies: Datenschutz-Infos ausblenden"
+                : "Youtube-Cookies: Datenschutz-Infos anzeigen"}
+            </span>
           </button>
           {showInfo && (
             <div
@@ -143,8 +148,25 @@ export default function YoutubeVideo({ value }: YoutubeVideoProps) {
               }}
             >
               <p>
-                Beim Aktivieren von YouTube-Cookies werden Daten an Google
-                übertragen. Dies kann Tracking beinhalten.
+                <strong>Verantwortlicher:</strong> Markus Majoros
+              </p>
+              <p>
+                <strong>Zweck der Verarbeitung:</strong> Anzeige von
+                eingebetteten YouTube-Videos. Dabei werden Daten (z. B.
+                IP-Adresse, Nutzungsdaten) an Google übermittelt.
+              </p>
+              <p>
+                <strong>Rechtsgrundlage:</strong> Einwilligung (Art. 6 Abs. 1
+                lit. a DSGVO).
+              </p>
+              <p>
+                <strong>Widerruf:</strong> Die Einwilligung kann jederzeit ohne
+                Angabe von Gründen widerrufen werden. Die Rechtmäßigkeit der bis
+                zum Widerruf erfolgten Verarbeitung bleibt unberührt.
+              </p>
+              <p>
+                <strong>Wie widerrufen?</strong> Über den Cookie-Schalter oben
+                („Cookies für YouTube aktivieren“)
               </p>
               <a href="/privacy-policy">
                 Mehr dazu in der Datenschutzerklärung

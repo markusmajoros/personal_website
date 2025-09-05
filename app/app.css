@@ -160,6 +160,32 @@ body {
   flex-direction: column;
 }
 
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-right: 1em;
+}
+
+.button span:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 1;
+}
+
+.button:hover {
+  color: #007bff;
+}
+
+.button.show span:after {
+  content: "\00bb"; /* » */
+}
+
+.button.hide span:after {
+  content: "\00ab"; /* « */
+}
+
 figcaption {
   margin-top: 6px;
   text-align: center;

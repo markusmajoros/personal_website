@@ -178,8 +178,6 @@ export default function SingleStation({ loaderData }: Route.ComponentProps) {
               .width(1000)
               .height(630)
               .auto("format")
-              .crop("center")
-              .fit("crop")
               .url()}
             alt={loaderData.station.title}
             style={{ maxWidth: "100%" }}
