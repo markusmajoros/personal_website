@@ -88,9 +88,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         ></img>
         <div className="tripText">
           <p>
-            Hallo! Mein Name ist Markus Majoros, ich bin Jurist und
-            angehender Web Developer mit einer Leidenschaft für IT-Recht. Ich
-            liebe es neue Sachen zu lernen und meinen Horizont zu erweitern.
+            Hallo! Mein Name ist Markus Majoros, ich bin Jurist und angehender
+            Web Developer mit einer Leidenschaft für IT-Recht. Ich liebe es neue
+            Sachen zu lernen und meinen Horizont zu erweitern.
           </p>
           <a href="/about">Hier findest du mehr Infos über mich.</a>
         </div>
@@ -107,6 +107,32 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         ))}
+      </div>
+      <div
+        style={{
+          padding: "1rem 0",
+          marginTop: "4rem",
+          borderTop: "1px solid #ddd",
+        }}
+      >
+        <p>Diese Website wurde erstellt mit:</p>
+        <ul
+          style={{
+            listStyleType: "disc",
+            paddingLeft: "1.5rem",
+            textAlign: "left",
+          }}
+        >
+          <li>
+            <a href="https://www.typescriptlang.org/">Typescript</a>
+          </li>
+          <li>
+            <a href="https://reactrouter.com/">React with React Router 7</a>
+          </li>
+          <li>
+            <a href="https://www.sanity.io/">Sanity CMS</a>
+          </li>
+        </ul>
       </div>
     </div>
   );
