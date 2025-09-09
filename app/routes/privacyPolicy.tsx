@@ -103,8 +103,7 @@ export default function PrivacyPolicy({}: Route.ComponentProps) {
       <h3>YouTube-Videos</h3>
       <p>
         Auf dieser Website sind YouTube-Videos eingebunden. Ich selbst speichere
-        dabei keine personenbezogenen Daten. YouTube fungiert als
-        Auftragsverarbeiter.
+        dabei keine personenbezogenen Daten.
       </p>
       <p>
         Folgende Daten werden ggf. an YouTube übermittelt, sobald Sie ein Video
@@ -122,7 +121,7 @@ export default function PrivacyPolicy({}: Route.ComponentProps) {
         </li>
       </ul>
       <p>
-        Die Rechtsgrundlage für die Verarbeitung ist Ihre ausdrückliche&nbsp;
+        Die Rechtsgrundlage für die Verarbeitung ist Ihre &nbsp;
         <strong>Einwilligung</strong>, die Sie durch das Setzen eines Cookies
         via Toggle-Consent erteilen. Solange Sie die Einwilligung nicht
         erteilen, werden keine personenbezogenen Daten an YouTube übermittelt.
