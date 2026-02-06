@@ -1,35 +1,23 @@
-@font-face {
-  font-family: "Open Sans";
-  src: url("/OpenSans-Regular.ttf") format("ttf");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src: url("/OpenSans-Bold.ttf") format("ttf");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-* {
+﻿* {
   box-sizing: border-box;
 }
+
 html,
 body {
-  font-family: "Open Sans", Helvetica, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .site-bg-image {
-  background: url("/images/img_background.jpg") center center/cover no-repeat;
+  background-color: #fafafa;
   min-height: 100vh;
   width: 100%;
   overflow: auto;
-  background-attachment: fixed;
 }
 
 :root {
@@ -37,7 +25,7 @@ body {
 }
 
 .main-website-wrapper {
-  width: 70%;
+  width: 85%;
   max-width: 900px;
   min-width: 320px;
   margin: 0 auto;
@@ -47,109 +35,141 @@ body {
   flex-direction: column;
   position: relative;
   z-index: 1;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
 .header {
   display: flex;
   background-color: white;
-  max-width: 800px;
-  margin: 0 auto;
   width: 100%;
   justify-content: space-between;
-  padding: 1rem;
-  text-align: center;
+  align-items: center;
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .header .nav {
   display: flex;
   justify-content: center;
-  font-size: 1.2rem;
-  gap: 1rem;
+  font-size: 1rem;
+  gap: 2rem;
 }
 
 .header a {
   display: flex;
   text-decoration: none;
-  color: #343a40;
-  font-weight: bold;
+  color: #2c3e50;
+  font-weight: 500;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+  transition: color 0.2s ease;
 }
 
 .header a:hover {
-  color: #007bff;
+  color: #0066cc;
 }
 
 .markus {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 }
 
 .footer {
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 800px;
   margin: 0 auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  gap: 2rem;
 }
 
 .footer .credentials {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer p {
   margin: 0;
-  color: #6c757d;
-  line-height: 1.5;
-  font-size: 1em;
+  color: #7a8490;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  font-weight: 400;
 }
 
 .footer .nav {
   display: flex;
   justify-content: center;
-  font-size: 1.2rem;
-  gap: 1rem;
+  font-size: 1rem;
+  gap: 1.5rem;
 }
 
 .footer a {
   text-decoration: none;
-  color: #343a40;
-  font-weight: bold;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .footer a:hover {
-  color: #007bff;
+  color: #0066cc;
 }
 
 .main {
-  max-width: 700px;
+  max-width: 850px;
   flex-grow: 1;
   margin: 0 auto;
-  width: 90%;
-  padding-bottom: 1rem;
+  width: 100%;
+  padding: 2rem 1.5rem 3rem;
 }
 
 .main a {
   text-decoration: none;
-  color: #343a40;
-  font-weight: bold;
+  color: #0066cc;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .main a:hover {
-  color: #007bff;
+  color: #0052a3;
+  text-decoration: underline;
+}
+
+.main h1 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+  color: #1a1a1a;
 }
 
 .main h2 {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 2rem 0 1rem 0;
+  color: #1a1a1a;
 }
 
 .main h3 {
-  font-size: 1.45rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 1.5rem 0 0.75rem 0;
+  color: #2c3e50;
+}
+
+.main p {
+  line-height: 1.75;
+  color: #4a5568;
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
 }
 
 .homepage {
@@ -161,7 +181,10 @@ body {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  padding-right: 1em;
+  padding-right: 1.2em;
+  font-weight: 500;
+  color: #0066cc;
+  transition: color 0.2s ease;
 }
 
 .button span:after {
@@ -169,66 +192,229 @@ body {
   top: 0;
   right: 0;
   opacity: 1;
+  transition: transform 0.2s ease;
 }
 
 .button:hover {
-  color: #007bff;
+  color: #0052a3;
 }
 
 .button.show span:after {
-  content: "\00bb"; /* » */
+  content: "\00bb"; /*  */
 }
 
 .button.hide span:after {
-  content: "\00ab"; /* « */
+  content: "\00ab"; /*  */
 }
 
 figcaption {
-  margin-top: 6px;
+  margin-top: 12px;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
+  color: #7a8490;
+  font-weight: 500;
 }
 
-.trip + .trip {
-  margin-top: 60px;
+/* Trip Styling */
+.tripCardLink {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  display: block;
 }
 
-.singletrip {
-  margin-bottom: 60px;
+.tripCardLink:hover {
+  text-decoration: none !important;
 }
 
-.stationlist {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.tripCardLink:hover h2 {
+  text-decoration: none !important;
+}
+
+.trip {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tripCardLink:hover .trip {
+  border-color: rgba(0, 61, 153, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 61, 153, 0.12);
+}
+
+.trip h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.tripDates {
+  font-size: 0.9rem;
+  color: #7a8490;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.tripDates p {
+  margin: 0;
+}
+
+.trip img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 .tripText {
-  font-size: 18px;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #4a5568;
 }
 
-.stationContainer {
-  font-size: 18px;
+.tripText p {
+  margin: 0.5rem 0;
 }
 
-.stationText {
-  max-width: 60ch;
-  margin: auto;
+/* Station Styling - Timeline */
+.stationlist {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 2rem;
+}
+
+.stationlist::before {
+  content: "";
+  position: absolute;
+  left: 0.4rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #003d99;
+}
+
+.stationCardLink {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: block;
+}
+
+.stationCardLink:hover {
+  text-decoration: none !important;
+}
+
+.stationCardLink:hover h3 {
+  text-decoration: none !important;
+}
+
+.stationCard {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stationCardLink:hover .stationCard {
+  border-color: rgba(0, 61, 153, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 61, 153, 0.12);
+}
+
+.stationCardLink::before {
+  content: "";
+  position: absolute;
+  left: -2.2rem;
+  top: 3rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid #003d99;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.stationCardLink:hover::before {
+  background-color: #003d99;
+  box-shadow: 0 0 0 4px rgba(0, 61, 153, 0.2);
+  transform: scale(1.15);
+}
+
+.stationCard h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.3px;
+}
+
+.stationDates {
+  font-size: 0.9rem;
+  color: #7a8490;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.stationDates p {
+  margin: 0;
+}
+
+.stationCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 0 1rem 0;
+  display: block;
+  object-fit: cover;
+}
+
+.stationDescription {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a5568;
+}
+
+.stationDescription p {
+  margin: 0;
+}
+
+.singletrip {
+  margin-bottom: 2rem;
 }
 
 .arrows {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
+  margin: 3rem auto 0;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  gap: 1rem;
 }
 
 .arrows a {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #343a40;
-  font-weight: bold;
+  color: #0066cc;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.arrows a:hover {
+  color: #0052a3;
 }
 
 .arrows .leftArrow {
@@ -247,48 +433,110 @@ figcaption {
 
 @media (max-width: 768px) {
   body {
-    background: white;
+    background-color: #fafafa;
   }
+
   .main-website-wrapper {
-    width: 90%;
+    width: 100%;
+    box-shadow: none;
   }
-  .header {
-    padding-left: 0;
-  }
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+
   .site-bg-image {
-    background: none;
+    background-color: #fafafa;
     min-height: 100vh;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
   }
+
+  .header {
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .markus {
+    font-size: 1.15rem;
+  }
+
   .header .nav {
     display: flex;
     justify-content: center;
-    font-size: 1.2rem;
-    gap: 0.4rem;
+    font-size: 0.95rem;
+    gap: 1.5rem;
   }
+
+  .main {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .main h1 {
+    font-size: 1.75rem;
+  }
+
+  .main h2 {
+    font-size: 1.4rem;
+  }
+
+  .main h3 {
+    font-size: 1.15rem;
+  }
+
   .footer {
-    padding: 1rem;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    display: flex;
-    flex-wrap: wrap;
+    padding: 1.5rem 1rem;
     gap: 1rem;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    flex-direction: column;
   }
+
   .footer .nav {
-    align-items: center;
-    justify-content: center;
     gap: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .trip {
+    padding: 1.25rem;
+    border-radius: 6px;
+  }
+
+  .stationlist {
+    padding-left: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .stationlist::before {
+    left: 0.25rem;
+  }
+
+  .stationCardLink::before {
+    left: -1.5rem;
+    top: 2.25rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-width: 2px;
+  }
+
+  .stationCard {
+    padding: 1.25rem;
+  }
+
+  .stationCard h3 {
+    font-size: 1.15rem;
+  }
+
+  .arrows {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .arrows .leftArrow,
+  .arrows .rightArrow {
+    width: 100%;
+    justify-content: center;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 }

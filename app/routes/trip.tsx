@@ -57,30 +57,35 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <h2 style={{ textAlign: "center" }}>Stationen</h2>
       <div className="stationlist">
         {loaderData.trip.stations.map((station) => (
-          <div key={station._key}>
-            <Link
-              to={`/trips/${loaderData.trip.slug.current}/stations/${station._key}`}
-            >
+          <Link
+            key={station._key}
+            to={`/trips/${loaderData.trip.slug.current}/stations/${station._key}`}
+            className="stationCardLink"
+          >
+            <div className="stationCard">
               <h3>{station.title}</h3>
-            </Link>
-            {station.image?.asset && (
-              <img
-                src={urlFor(station.image)
-                  .width(1000)
-                  .height(630)
-                  .auto("format")
-                  .url()}
-                alt={station.title}
-                style={{ maxWidth: "100%" }}
-                loading="lazy"
-              />
-            )}{" "}
-            <div className="tripText">
-              <p>{station.shortText}</p>
-              <p>Von: {formatDateEu(station.startDate)}</p>
-              <p>Bis: {formatDateEu(station.endDate)}</p>
+              <div className="stationDates">
+                <p>
+                  {formatDateEu(station.startDate)} –{" "}
+                  {formatDateEu(station.endDate)}
+                </p>
+              </div>
+              {station.image?.asset && (
+                <img
+                  src={urlFor(station.image)
+                    .width(1000)
+                    .height(630)
+                    .auto("format")
+                    .url()}
+                  alt={station.title}
+                  loading="lazy"
+                />
+              )}
+              <div className="stationDescription">
+                <p>{station.shortText}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
