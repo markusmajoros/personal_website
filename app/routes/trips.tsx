@@ -23,31 +23,35 @@ export default function SingleTrip({ loaderData }: Route.ComponentProps) {
       <h1>Meine Reisen</h1>
       <p className="tripText">Hier findest du eine Übersicht meiner Reisen.</p>
       {loaderData.trips.map((trip) => (
-        <div key={trip._id} className="trip">
-          <Link to={`/trips/${trip.slug.current}`}>
+        <Link
+          key={trip._id}
+          to={`/trips/${trip.slug.current}`}
+          className="tripCardLink"
+        >
+          <div className="trip">
             <h2>{trip.title}</h2>
-          </Link>
-          {trip.image?.asset && (
-            <img
-              src={urlFor(trip.image)
-                .width(1000)
-                .height(630)
-                .auto("format")
-                .url()}
-              alt={trip.title}
-              style={{ maxWidth: "100%" }}
-              loading="lazy"
-            />
-          )}
-          <div className="tripText">
-            <p>{trip.shortText}</p>
-            <p>
+            <div className="tripDates">
               <p>
                 {formatDateEu(trip.startDate)} - {formatDateEu(trip.endDate)}
               </p>
-            </p>
+            </div>
+            {trip.image?.asset && (
+              <img
+                src={urlFor(trip.image)
+                  .width(1000)
+                  .height(630)
+                  .auto("format")
+                  .url()}
+                alt={trip.title}
+                style={{ maxWidth: "100%" }}
+                loading="lazy"
+              />
+            )}
+            <div className="tripText">
+              <p>{trip.shortText}</p>
+            </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
