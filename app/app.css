@@ -398,9 +398,7 @@ figcaption {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 3rem auto 0;
-  padding: 2rem 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: 2rem;
   gap: 1rem;
 }
 
@@ -429,6 +427,39 @@ figcaption {
   justify-content: flex-end;
   align-items: center;
   flex: 1;
+}
+
+@media (min-width: 1728px) {
+  .main-website-wrapper {
+    width: 90%;
+    max-width: 1400px;
+  }
+
+  .main {
+    max-width: 1300px;
+    padding: 2.5rem 2rem 3rem;
+  }
+
+  .header {
+    padding: 2.5rem 2rem 2rem;
+  }
+
+  .header .nav {
+    gap: 3rem;
+  }
+
+  .footer {
+    padding: 2.5rem;
+    gap: 3rem;
+  }
+
+  .singletrip img {
+    width: 100%;
+  }
+
+  .stationText img {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -524,14 +555,42 @@ figcaption {
   }
 
   .arrows {
-    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
+    padding: 1.5rem 0;
+    flex-wrap: nowrap;
+    position: relative;
   }
 
-  .arrows .leftArrow,
+  .arrows h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .arrows .leftArrow {
+    position: absolute;
+    left: 0;
+    font-size: 0.85rem;
+  }
+
   .arrows .rightArrow {
-    width: 100%;
-    justify-content: center;
+    position: absolute;
+    right: 0;
+    font-size: 0.85rem;
+  }
+
+  .arrows .leftArrow a,
+  .arrows .rightArrow a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .arrows svg {
+    width: 16px;
+    height: 16px;
   }
 
   *,
