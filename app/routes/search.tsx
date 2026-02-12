@@ -34,6 +34,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     "tripTitle": title,
     "tripImage": image,
     "stations": stations[] {
+      "_key": _key,  
       title,
       shortText,
       image,
@@ -79,7 +80,7 @@ export async function loader({ request }: Route.LoaderArgs) {
         _type: "station",
         tripSlug: trip.tripSlug,
         tripTitle: trip.tripTitle,
-        stationKey: item.index,
+        stationKey: item.station._key,
         shortText: item.station.shortText,
         image: item.station.image || trip.tripImage,
         startDate: item.station.startDate,
