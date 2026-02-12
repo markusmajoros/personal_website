@@ -17,5 +17,6 @@ export default [
     route("privacy-policy/", "routes/privacyPolicy.tsx"),
     route("about/", "routes/about.tsx"),
     route("contact/", "routes/contact.tsx"),
+    route("search/", "routes/search.tsx"),
   ]),
 ] satisfies RouteConfig;

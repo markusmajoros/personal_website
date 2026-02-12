@@ -1,4 +1,4 @@
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/about";
 
 export default function About({ loaderData }: Route.ComponentProps) {
   return (
@@ -28,5 +28,8 @@ export function headers() {
 }
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "About" }, { name: "description", content: "" }];
+  return [
+    { title: "About" },
+    { name: "description", content: "Das ist die About-Seite." },
+  ];
 }
