@@ -15,6 +15,7 @@ export default function SiteLayout() {
           <nav className="nav">
             <Link to="/trips">Reisen</Link>
             <Link to="/about">About</Link>
+            <Link to="/contact">Kontakt</Link>
           </nav>
         </header>
         <main className="main">

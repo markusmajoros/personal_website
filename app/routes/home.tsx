@@ -124,13 +124,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           }}
         >
           <li>
-            <a href="https://www.typescriptlang.org/">Typescript</a>
+            <a href="https://www.typescriptlang.org/" target="_blank">
+              Typescript
+            </a>
           </li>
           <li>
-            <a href="https://reactrouter.com/">React with React Router 7</a>
+            <a href="https://reactrouter.com/" target="_blank">
+              React with React Router 7
+            </a>
           </li>
           <li>
-            <a href="https://www.sanity.io/">Sanity CMS</a>
+            <a href="https://www.sanity.io/" target="_blank">
+              Sanity CMS
+            </a>
           </li>
         </ul>
       </div>

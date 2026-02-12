@@ -16,5 +16,6 @@ export default [
     route("imprint/", "routes/imprint.tsx"),
     route("privacy-policy/", "routes/privacyPolicy.tsx"),
     route("about/", "routes/about.tsx"),
+    route("contact/", "routes/contact.tsx"),
   ]),
 ] satisfies RouteConfig;
