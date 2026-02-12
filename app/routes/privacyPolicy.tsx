@@ -230,5 +230,8 @@ export function headers() {
 }
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Datenschutz" }, { name: "description", content: "" }];
+  return [
+    { title: "Datenschutz" },
+    { name: "description", content: "Datenschutzerklärung" },
+  ];
 }
