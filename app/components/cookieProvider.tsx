@@ -3,10 +3,20 @@ import React, {
   useContext,
   useState,
   useCallback,
-  ReactNode,
   useEffect,
 } from "react";
-import { Cookies, getCookieConsentValue } from "react-cookie-consent";
+import pkg from "react-cookie-consent";
+import * as namedPkg from "react-cookie-consent";
+
+const getCookieConsentValue =
+  (namedPkg as any).getCookieConsentValue ||
+  (pkg as any).getCookieConsentValue ||
+  (pkg as any).default?.getCookieConsentValue;
+
+const Cookies =
+  (namedPkg as any).Cookies ||
+  (pkg as any).Cookies ||
+  (pkg as any).default?.Cookies;
 
 interface CookieConsentContextType {
   consentStates: Record<string, boolean>;
@@ -18,14 +28,14 @@ const CookieConsentContext = createContext<
 >(undefined);
 
 interface CookieConsentProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const CookieConsentProvider = ({
   children,
 }: CookieConsentProviderProps) => {
   const [consentStates, setConsentStates] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
 
   const setConsent = useCallback((cookieName: string, value: boolean) => {
@@ -43,7 +53,7 @@ export const useCookieConsentContext = (cookieName: string) => {
   const context = useContext(CookieConsentContext);
   if (!context) {
     throw new Error(
-      "useCookieConsentContext must be used within a CookieConsentProvider"
+      "useCookieConsentContext must be used within a CookieConsentProvider",
     );
   }
 

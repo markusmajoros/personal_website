@@ -5,7 +5,6 @@ import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
 import { urlFor } from "~/sanity/sanityImageUrl";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import CookieConsent from "react-cookie-consent";
 import { Hydrated } from "~/components/hydrated";
 import YoutubeVideo from "~/components/youtubeVideo";
 
@@ -109,7 +108,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   }
 
   const stationIndex = trip.stations.findIndex(
-    (s: any) => s._key === params.stationKey
+    (s: any) => s._key === params.stationKey,
   );
 
   const station = trip.stations[stationIndex];
