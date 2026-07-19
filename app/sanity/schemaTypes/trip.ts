@@ -62,10 +62,60 @@ export const tripType = defineType({
       of: [
         {
           type: "object",
+          preview: {
+            select: {
+              title: "title",
+              media: "image",
+              type: "locationType",
+            },
+            prepare({ title, media, type }) {
+              return {
+                title: `${type === "route" ? "🚐" : "📍"} ${
+                  title || "Unbenannte Station"
+                }`,
+                media,
+              };
+            },
+          },
           fields: [
             defineField({
               name: "title",
               type: "string",
+            }),
+            defineField({
+              name: "locationType",
+              title: "Kartentyp",
+              type: "string",
+              initialValue: "marker",
+              options: {
+                layout: "radio",
+                list: [
+                  {
+                    title: "📍 Einzelner Ort",
+                    value: "marker",
+                  },
+                  {
+                    title: "🚐 GPX-Route",
+                    value: "route",
+                  },
+                ],
+              },
+            }),
+            defineField({
+              name: "geolocation",
+              title: "Standort",
+              type: "geopoint",
+              hidden: ({ parent }) => parent?.locationType !== "marker",
+            }),
+
+            defineField({
+              name: "gpxFile",
+              title: "GPX-Datei",
+              type: "file",
+              hidden: ({ parent }) => parent?.locationType !== "route",
+              options: {
+                accept: ".gpx",
+              },
             }),
             defineField({
               name: "shortText",

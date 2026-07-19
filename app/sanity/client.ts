@@ -80,6 +80,9 @@ export async function getTrip(slug: string) {
       stations[]{
         _key,
         title,
+        locationType,
+        geoLocation,
+        "gpxFile": gpxFile.asset->{url},
         shortText,
         content[]{
           ...,
@@ -104,7 +107,7 @@ export async function getTrip(slug: string) {
         }
       }
     }`,
-    { slug }
+    { slug },
   );
   return trip;
 }
