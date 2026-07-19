@@ -6,6 +6,24 @@ import { useEffect, useRef, useState } from "react";
 
 export async function action({ request }: Route.ActionArgs) {
   let formData = await request.formData();
+
+  // 1. SPAM SCHUTZ: Honeypot auslesen
+  let honeypot = formData.get("newsletter_subscribe")?.toString();
+
+  // 2. SPAM SCHUTZ: Zeitstempel auslesen
+  let formTimestamp = formData.get("form_timestamp")?.toString();
+  const currentTime = Date.now();
+
+  // Wenn der Honeypot befüllt wurde ODER das Formular in unter 2 Sekunden abgeschickt wurde
+  if (
+    honeypot ||
+    (formTimestamp && currentTime - parseInt(formTimestamp) < 2000)
+  ) {
+    // Wir tun so, als wäre alles okay, damit der Bot nicht merkt, dass er blockiert wurde.
+    console.warn("Spam-Bot abgefangen.");
+    return { success: true };
+  }
+
   let name = formData.get("name")?.toString();
   let email = formData.get("email")?.toString();
   let subject = formData.get("subject")?.toString();
@@ -74,6 +92,12 @@ export default function Contact({}: Route.ComponentProps) {
 
   // Track which fields have been focused to clear their error styling
   const [clearedFields, setClearedFields] = useState<Set<string>>(new Set());
+  // Zustand für den initialen Zeitstempel beim Laden der Seite
+  const [mountedAt, setMountedAt] = useState<number>(0);
+
+  useEffect(() => {
+    setMountedAt(Date.now());
+  }, [actionData?.success]); // Setzt die Zeit auch nach erfolgreichem Reset zurück
 
   useEffect(() => {
     if (actionData?.success) {
@@ -143,6 +167,34 @@ export default function Contact({}: Route.ComponentProps) {
       )}
 
       <Form method="post" className="contact-form" ref={formRef}>
+        {/* SPAM SCHUTZ 1: Unsichtbarer Honeypot */}
+        <div
+          style={{
+            opacity: 0,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            height: 0,
+            width: 0,
+            zIndex: -1,
+            overflow: "hidden",
+          }}
+        >
+          <label htmlFor="newsletter_subscribe">
+            Abonniere unseren Newsletter
+          </label>
+          <input
+            type="text"
+            id="newsletter_subscribe"
+            name="newsletter_subscribe"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
+        {/* SPAM SCHUTZ 2: Zeitstempel-Feld */}
+        <input type="hidden" name="form_timestamp" value={mountedAt} />
+
         <div className="form-group">
           <label htmlFor="name">Name *</label>
           <input
