@@ -234,7 +234,7 @@ export default function Contact({}: Route.ComponentProps) {
             hiddenInput.value = token;
           }
 
-          formRef.current?.requestSubmit();
+          formRef.current?.submit();
         } catch (error) {
           console.error("reCAPTCHA execute error:", error);
           setRecaptchaToken("");
