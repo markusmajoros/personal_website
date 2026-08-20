@@ -142,27 +142,36 @@ export default function Contact({}: Route.ComponentProps) {
     setMountedAt(Date.now());
   }, [actionData?.success]);
 
-  // reCAPTCHA Token laden wenn Komponente mounted
   useEffect(() => {
     const loadRecaptchaToken = async () => {
-      if (typeof window !== "undefined" && window.grecaptcha) {
-        window.grecaptcha.ready(async () => {
-          try {
-            const token = await window.grecaptcha.execute(
-              import.meta.env.VITE_RECAPTCHA_SITE_KEY,
-              { action: "submit" },
-            );
-            setRecaptchaToken(token);
-          } catch (error) {
-            console.error("reCAPTCHA load error:", error);
-          }
-        });
+      // Warte bis grecaptcha verfügbar ist
+      let attempts = 0;
+      while (!window.grecaptcha && attempts < 20) {
+        await new Promise((r) => setTimeout(r, 100)); // 100ms warten
+        attempts++;
       }
+
+      if (!window.grecaptcha) {
+        console.error("reCAPTCHA script failed to load");
+        return;
+      }
+
+      // Jetzt ist grecaptcha verfügbar
+      window.grecaptcha.ready(async () => {
+        try {
+          const token = await window.grecaptcha.execute(
+            import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+            { action: "submit" },
+          );
+          setRecaptchaToken(token);
+        } catch (error) {
+          console.error("reCAPTCHA execute error:", error);
+        }
+      });
     };
 
     loadRecaptchaToken();
 
-    // Token alle 2 Minuten neu laden (Token verfallen nach 2 Minuten)
     const interval = setInterval(loadRecaptchaToken, 120000);
     return () => clearInterval(interval);
   }, []);
