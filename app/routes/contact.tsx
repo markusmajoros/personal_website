@@ -140,6 +140,8 @@ export default function Contact({}: Route.ComponentProps) {
 
   const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
+  const recaptchaScriptLoadedRef = useRef(false);
+
   useEffect(() => {
     setMountedAt(Date.now());
   }, [actionData?.success]);
@@ -155,7 +157,35 @@ export default function Contact({}: Route.ComponentProps) {
         'script[src*="google.com/recaptcha/api.js"]',
       ) as HTMLScriptElement | null;
 
-      const script = existingScript ?? document.createElement("script");
+      const shouldLoadScript =
+        !existingScript && !recaptchaScriptLoadedRef.current;
+
+      if (existingScript) {
+        if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
+          resolve();
+          return;
+        }
+
+        const tryResolve = () => {
+          if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
+            resolve();
+            return;
+          }
+
+          setTimeout(tryResolve, 100);
+        };
+
+        existingScript.onload = () => tryResolve();
+        existingScript.onerror = () =>
+          reject(new Error("reCAPTCHA script failed to load"));
+        return;
+      }
+
+      if (shouldLoadScript) {
+        recaptchaScriptLoadedRef.current = true;
+      }
+
+      const script = document.createElement("script");
       script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
       script.async = true;
       script.defer = true;
@@ -169,10 +199,7 @@ export default function Contact({}: Route.ComponentProps) {
         setTimeout(tryResolve, 100);
       };
 
-      if (!existingScript) {
-        document.head.appendChild(script);
-      }
-
+      document.head.appendChild(script);
       script.onload = () => tryResolve();
       script.onerror = () =>
         reject(new Error("reCAPTCHA script failed to load"));
