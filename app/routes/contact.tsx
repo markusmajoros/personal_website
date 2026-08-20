@@ -144,93 +144,80 @@ export default function Contact({}: Route.ComponentProps) {
     setMountedAt(Date.now());
   }, [actionData?.success]);
 
-  useEffect(() => {
-    const loadRecaptchaToken = async () => {
-      if (!recaptchaSiteKey) {
-        console.error(
-          "reCAPTCHA site key is missing from VITE_RECAPTCHA_SITE_KEY",
-        );
-        return;
-      }
-
+  const ensureRecaptchaReady = () =>
+    new Promise<void>((resolve, reject) => {
       if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
-        window.grecaptcha.ready(async () => {
-          try {
-            const token = await window.grecaptcha.execute(recaptchaSiteKey, {
-              action: "contact_form",
-            });
-            setRecaptchaToken(token);
-          } catch (error) {
-            console.error("reCAPTCHA execute error:", error);
-            setRecaptchaToken("");
-          }
-        });
+        resolve();
         return;
       }
 
       const existingScript = document.querySelector(
         'script[src*="google.com/recaptcha/api.js"]',
-      );
+      ) as HTMLScriptElement | null;
+
+      const script = existingScript ?? document.createElement("script");
+      script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+      script.async = true;
+      script.defer = true;
+
+      const tryResolve = () => {
+        if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
+          resolve();
+          return;
+        }
+
+        setTimeout(tryResolve, 100);
+      };
 
       if (!existingScript) {
-        const script = document.createElement("script");
-        script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
-        script.async = true;
-        script.defer = true;
-        script.onload = () => {
-          if (!window.grecaptcha?.ready || !window.grecaptcha?.execute) {
-            console.error("reCAPTCHA script failed to load or is unavailable");
-            return;
-          }
-
-          window.grecaptcha.ready(async () => {
-            try {
-              const token = await window.grecaptcha.execute(recaptchaSiteKey, {
-                action: "contact_form",
-              });
-              setRecaptchaToken(token);
-            } catch (error) {
-              console.error("reCAPTCHA execute error:", error);
-              setRecaptchaToken("");
-            }
-          });
-        };
-        script.onerror = () => {
-          console.error("reCAPTCHA script could not be loaded from Google");
-        };
         document.head.appendChild(script);
-        return;
       }
 
-      let attempts = 0;
-      while (!window.grecaptcha && attempts < 20) {
-        await new Promise((r) => setTimeout(r, 100));
-        attempts++;
-      }
+      script.onload = () => tryResolve();
+      script.onerror = () =>
+        reject(new Error("reCAPTCHA script failed to load"));
+    });
 
-      if (!window.grecaptcha?.ready || !window.grecaptcha?.execute) {
-        console.error("reCAPTCHA script failed to load or is unavailable");
-        return;
-      }
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!recaptchaSiteKey) {
+      console.error(
+        "reCAPTCHA site key is missing from VITE_RECAPTCHA_SITE_KEY",
+      );
+      return;
+    }
+
+    try {
+      await ensureRecaptchaReady();
 
       window.grecaptcha.ready(async () => {
         try {
           const token = await window.grecaptcha.execute(recaptchaSiteKey, {
             action: "contact_form",
           });
+
           setRecaptchaToken(token);
+
+          const hiddenInput = formRef.current?.querySelector(
+            'input[name="recaptcha_token"]',
+          ) as HTMLInputElement | null;
+
+          if (hiddenInput) {
+            hiddenInput.value = token;
+          }
+
+          formRef.current?.requestSubmit();
         } catch (error) {
           console.error("reCAPTCHA execute error:", error);
           setRecaptchaToken("");
         }
       });
-    };
-
-    loadRecaptchaToken();
-
-    const interval = setInterval(loadRecaptchaToken, 120000);
-    return () => clearInterval(interval);
-  }, [recaptchaSiteKey]);
+    } catch (error) {
+      console.error("reCAPTCHA initialization error:", error);
+      setRecaptchaToken("");
+    }
+  };
 
   useEffect(() => {
     if (actionData?.success) {
@@ -298,7 +285,12 @@ export default function Contact({}: Route.ComponentProps) {
         </p>
       )}
 
-      <Form method="post" className="contact-form" ref={formRef}>
+      <Form
+        method="post"
+        className="contact-form"
+        ref={formRef}
+        onSubmit={handleSubmit}
+      >
         {/* reCAPTCHA Token */}
         <input type="hidden" name="recaptcha_token" value={recaptchaToken} />
 
@@ -446,7 +438,7 @@ export default function Contact({}: Route.ComponentProps) {
           )}
         </div>
 
-        <button type="submit" disabled={isSubmitting || !recaptchaToken}>
+        <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Wird gesendet..." : "Absenden"}
         </button>
       </Form>
