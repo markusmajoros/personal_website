@@ -28,8 +28,6 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-
   return (
     <html lang="de">
       <head>
@@ -67,13 +65,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" /> <Links />
-        {recaptchaSiteKey && (
-          <script
-            src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}
-            async
-            defer
-          ></script>
-        )}
       </head>
       <body>
         <CookieConsentProvider>{children}</CookieConsentProvider>

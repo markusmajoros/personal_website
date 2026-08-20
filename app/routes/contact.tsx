@@ -153,6 +153,55 @@ export default function Contact({}: Route.ComponentProps) {
         return;
       }
 
+      if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
+        window.grecaptcha.ready(async () => {
+          try {
+            const token = await window.grecaptcha.execute(recaptchaSiteKey, {
+              action: "contact_form",
+            });
+            setRecaptchaToken(token);
+          } catch (error) {
+            console.error("reCAPTCHA execute error:", error);
+            setRecaptchaToken("");
+          }
+        });
+        return;
+      }
+
+      const existingScript = document.querySelector(
+        'script[src*="google.com/recaptcha/api.js"]',
+      );
+
+      if (!existingScript) {
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          if (!window.grecaptcha?.ready || !window.grecaptcha?.execute) {
+            console.error("reCAPTCHA script failed to load or is unavailable");
+            return;
+          }
+
+          window.grecaptcha.ready(async () => {
+            try {
+              const token = await window.grecaptcha.execute(recaptchaSiteKey, {
+                action: "contact_form",
+              });
+              setRecaptchaToken(token);
+            } catch (error) {
+              console.error("reCAPTCHA execute error:", error);
+              setRecaptchaToken("");
+            }
+          });
+        };
+        script.onerror = () => {
+          console.error("reCAPTCHA script could not be loaded from Google");
+        };
+        document.head.appendChild(script);
+        return;
+      }
+
       let attempts = 0;
       while (!window.grecaptcha && attempts < 20) {
         await new Promise((r) => setTimeout(r, 100));
