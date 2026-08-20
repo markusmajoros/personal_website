@@ -65,6 +65,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" /> <Links />
+        <script
+          src="https://www.google.com/recaptcha/api.js"
+          async
+          defer
+        ></script>
       </head>
       <body>
         <CookieConsentProvider>{children}</CookieConsentProvider>

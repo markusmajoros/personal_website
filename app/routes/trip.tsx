@@ -4,6 +4,7 @@ import { getTrip } from "~/sanity/client";
 import { PortableText } from "@portabletext/react";
 import { Link } from "react-router";
 import { urlFor } from "~/sanity/sanityImageUrl";
+//import TripMap from "~/components/tripMap";
 
 export async function loader({ params }: Route.LoaderArgs) {
   if (!params.slug) {
