@@ -138,34 +138,41 @@ export default function Contact({}: Route.ComponentProps) {
   const [mountedAt, setMountedAt] = useState<number>(0);
   const [recaptchaToken, setRecaptchaToken] = useState<string>("");
 
+  const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
   useEffect(() => {
     setMountedAt(Date.now());
   }, [actionData?.success]);
 
   useEffect(() => {
     const loadRecaptchaToken = async () => {
-      // Warte bis grecaptcha verfügbar ist
-      let attempts = 0;
-      while (!window.grecaptcha && attempts < 20) {
-        await new Promise((r) => setTimeout(r, 100)); // 100ms warten
-        attempts++;
-      }
-
-      if (!window.grecaptcha) {
-        console.error("reCAPTCHA script failed to load");
+      if (!recaptchaSiteKey) {
+        console.error(
+          "reCAPTCHA site key is missing from VITE_RECAPTCHA_SITE_KEY",
+        );
         return;
       }
 
-      // Jetzt ist grecaptcha verfügbar
+      let attempts = 0;
+      while (!window.grecaptcha && attempts < 20) {
+        await new Promise((r) => setTimeout(r, 100));
+        attempts++;
+      }
+
+      if (!window.grecaptcha?.ready || !window.grecaptcha?.execute) {
+        console.error("reCAPTCHA script failed to load or is unavailable");
+        return;
+      }
+
       window.grecaptcha.ready(async () => {
         try {
-          const token = await window.grecaptcha.execute(
-            import.meta.env.VITE_RECAPTCHA_SITE_KEY,
-            { action: "submit" },
-          );
+          const token = await window.grecaptcha.execute(recaptchaSiteKey, {
+            action: "contact_form",
+          });
           setRecaptchaToken(token);
         } catch (error) {
           console.error("reCAPTCHA execute error:", error);
+          setRecaptchaToken("");
         }
       });
     };
@@ -174,7 +181,7 @@ export default function Contact({}: Route.ComponentProps) {
 
     const interval = setInterval(loadRecaptchaToken, 120000);
     return () => clearInterval(interval);
-  }, []);
+  }, [recaptchaSiteKey]);
 
   useEffect(() => {
     if (actionData?.success) {
