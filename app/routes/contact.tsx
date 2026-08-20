@@ -7,20 +7,64 @@ import { useEffect, useRef, useState } from "react";
 export async function action({ request }: Route.ActionArgs) {
   let formData = await request.formData();
 
-  // 1. SPAM SCHUTZ: Honeypot auslesen
+  // 1. reCAPTCHA Token validieren
+  let recaptchaToken = formData.get("recaptcha_token")?.toString();
+
+  if (!recaptchaToken) {
+    return {
+      errors: {
+        general:
+          "Sicherheitsvalidierung fehlgeschlagen. Bitte laden Sie die Seite neu.",
+      },
+    };
+  }
+
+  // reCAPTCHA verifizieren
+  try {
+    const recaptchaResponse = await fetch(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          secret: process.env.RECAPTCHA_SECRET_KEY || "",
+          response: recaptchaToken,
+        }),
+      },
+    );
+
+    const recaptchaData = await recaptchaResponse.json();
+
+    // Score überprüfen (0.0 = Bot, 1.0 = Mensch)
+    if (!recaptchaData.success || recaptchaData.score < 0.5) {
+      console.warn(
+        `reCAPTCHA failed: success=${recaptchaData.success}, score=${recaptchaData.score}`,
+      );
+      return { success: true }; // Dem Bot vorgaukeln, dass alles ok ist
+    }
+  } catch (error) {
+    console.error("reCAPTCHA verification error:", error);
+    return {
+      errors: {
+        general: "Sicherheitsvalidierung fehlgeschlagen.",
+      },
+    };
+  }
+
+  // 2. Bisheriger SPAM SCHUTZ: Honeypot
   let honeypot = formData.get("newsletter_subscribe")?.toString();
 
-  // 2. SPAM SCHUTZ: Zeitstempel auslesen
+  // 3. SPAM SCHUTZ: Zeitstempel auslesen
   let formTimestamp = formData.get("form_timestamp")?.toString();
   const currentTime = Date.now();
 
-  // Wenn der Honeypot befüllt wurde ODER das Formular in unter 2 Sekunden abgeschickt wurde
   if (
     honeypot ||
     (formTimestamp && currentTime - parseInt(formTimestamp) < 2000)
   ) {
-    // Wir tun so, als wäre alles okay, damit der Bot nicht merkt, dass er blockiert wurde.
-    console.warn("Spam-Bot abgefangen.");
+    console.warn("Spam-Bot abgefangen (Honeypot/Zeitstempel).");
     return { success: true };
   }
 
@@ -90,27 +134,50 @@ export default function Contact({}: Route.ComponentProps) {
 
   const isSubmitting = navigation.state === "submitting";
 
-  // Track which fields have been focused to clear their error styling
   const [clearedFields, setClearedFields] = useState<Set<string>>(new Set());
-  // Zustand für den initialen Zeitstempel beim Laden der Seite
   const [mountedAt, setMountedAt] = useState<number>(0);
+  const [recaptchaToken, setRecaptchaToken] = useState<string>("");
 
   useEffect(() => {
     setMountedAt(Date.now());
-  }, [actionData?.success]); // Setzt die Zeit auch nach erfolgreichem Reset zurück
+  }, [actionData?.success]);
+
+  // reCAPTCHA Token laden wenn Komponente mounted
+  useEffect(() => {
+    const loadRecaptchaToken = async () => {
+      if (typeof window !== "undefined" && window.grecaptcha) {
+        window.grecaptcha.ready(async () => {
+          try {
+            const token = await window.grecaptcha.execute(
+              import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+              { action: "submit" },
+            );
+            setRecaptchaToken(token);
+          } catch (error) {
+            console.error("reCAPTCHA load error:", error);
+          }
+        });
+      }
+    };
+
+    loadRecaptchaToken();
+
+    // Token alle 2 Minuten neu laden (Token verfallen nach 2 Minuten)
+    const interval = setInterval(loadRecaptchaToken, 120000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (actionData?.success) {
-      // Delay reset slightly so user can see the success message
       const timer = setTimeout(() => {
         formRef.current?.reset();
-        setClearedFields(new Set()); // Reset cleared fields on success
+        setClearedFields(new Set());
+        setMountedAt(Date.now()); // Reset timestamp
       }, 100);
       return () => clearTimeout(timer);
     }
   }, [actionData?.success]);
 
-  // Reset cleared fields when new errors appear
   useEffect(() => {
     if (actionData?.errors) {
       setClearedFields(new Set());
@@ -167,6 +234,9 @@ export default function Contact({}: Route.ComponentProps) {
       )}
 
       <Form method="post" className="contact-form" ref={formRef}>
+        {/* reCAPTCHA Token */}
+        <input type="hidden" name="recaptcha_token" value={recaptchaToken} />
+
         {/* SPAM SCHUTZ 1: Unsichtbarer Honeypot */}
         <div
           style={{
@@ -311,7 +381,7 @@ export default function Contact({}: Route.ComponentProps) {
           )}
         </div>
 
-        <button type="submit" disabled={isSubmitting}>
+        <button type="submit" disabled={isSubmitting || !recaptchaToken}>
           {isSubmitting ? "Wird gesendet..." : "Absenden"}
         </button>
       </Form>

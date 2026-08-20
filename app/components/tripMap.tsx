@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 //@ts-ignore
 import "leaflet/dist/leaflet.css";
-import GpxLayer from "./GpxLayer";
+import GpxLayer from "./gpxLayer";
 
 type Station = {
   _key: string;
